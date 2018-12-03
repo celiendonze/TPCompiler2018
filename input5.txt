@@ -1,0 +1,5 @@
+a = 5;
+while( a ){
+    print "salut";
+    a = a - 1;
+}
