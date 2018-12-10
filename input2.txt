@@ -1,0 +1,3 @@
+a = "salut" + "salut";
+print(a);
+print("Hello " + "World!!");

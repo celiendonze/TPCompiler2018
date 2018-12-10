@@ -2,7 +2,8 @@ import ply.lex as lex
 
 reserved_words = (
 	'while',
-	'print'
+	'print',
+	'if'
 )
 
 tokens = (
@@ -13,7 +14,7 @@ tokens = (
 	'STRING',
 ) + tuple(map(lambda s:s.upper(),reserved_words))
 
-literals = '();={}'
+literals = '();={}+'
 
 def t_ADD_OP(t):
 	r'[+-]'
@@ -24,7 +25,7 @@ def t_MUL_OP(t):
 	return t
 
 def t_STRING(t):
-	r'"[a-zA-Z0-9]+"'
+	r'"[^"]+"'
 	return t
 
 def t_NUMBER(t):

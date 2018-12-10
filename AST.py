@@ -110,8 +110,8 @@ class StringNode(Node):
         Node.__init__(self)
         self.val = val
         
-    def __repr__(self):
-        return repr(self.val)
+    def __str__(self):
+        return str(self.val)
 
 class OpNode(Node):
     def __init__(self, op, children):

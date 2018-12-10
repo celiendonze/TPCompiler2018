@@ -34,7 +34,7 @@ def execute(self):
 
 @addToClass(AST.StringNode)
 def execute(self):
-    return repr(self)
+    return str(self)
 
 @addToClass(AST.AssignNode)
 def execute(self):
