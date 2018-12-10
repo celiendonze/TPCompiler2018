@@ -24,7 +24,7 @@ def t_MUL_OP(t):
 	return t
 
 def t_STRING(t):
-	r'"[a-zA-Z]+"'
+	r'"[a-zA-Z0-9]+"'
 	return t
 
 def t_NUMBER(t):

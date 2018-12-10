@@ -31,9 +31,9 @@ def p_structure(p):
 
 def p_expression_op(p):
     '''expression : expression ADD_OP expression
-            | expression MUL_OP expression'''
+    | expression MUL_OP expression'''
     p[0] = AST.OpNode(p[2], [p[1], p[3]])
-    	
+
 def p_expression_num_or_var(p):
     '''expression : NUMBER
         | IDENTIFIER '''
@@ -45,7 +45,7 @@ def p_expression_paren(p):
 
 def p_expression_string(p):
     ''' expression : STRING '''
-    p[0] = AST.StringNode(p[1].replace("\"",""))
+    p[0] = AST.StringNode(p[1].replace("\"","").replace("'",""))
 
 def p_minus(p):
     ''' expression : ADD_OP expression %prec UMINUS'''
