@@ -113,6 +113,15 @@ class StringNode(Node):
     def __str__(self):
         return str(self.val)
 
+class BooleanNode(Node):
+    type = 'boolean'
+    def __init__(self, val):
+        Node.__init__(self)
+        if val == "True":
+            self.val = True
+        else:
+            self.val = False
+
 class OpNode(Node):
     def __init__(self, op, children):
         Node.__init__(self,children)
@@ -140,16 +149,16 @@ class EntryNode(Node):
         Node.__init__(self, None)
     
 def addToClass(cls):
-    ''' D�corateur permettant d'ajouter la fonction d�cor�e en tant que m�thode
-    � une classe.
+    ''' Decorateur permettant d'ajouter la fonction decoree en tant que methode
+    a une classe.
     
-    Permet d'impl�menter une forme �l�mentaire de programmation orient�e
-    aspects en regroupant les m�thodes de diff�rentes classes impl�mentant
-    une m�me fonctionnalit� en un seul endroit.
+    Permet d'implementer une forme elementaire de programmation orientee
+    aspects en regroupant les methodes de differentes classes implementant
+    une meme fonctionnalite en un seul endroit.
     
-    Attention, apr�s utilisation de ce d�corateur, la fonction d�cor�e reste dans
-    le namespace courant. Si cela d�range, on peut utiliser del pour la d�truire.
-    Je ne sais pas s'il existe un moyen d'�viter ce ph�nom�ne.
+    Attention, apres utilisation de ce decorateur, la fonction decoree reste dans
+    le namespace courant. Si cela derange, on peut utiliser del pour la detruire.
+    Je ne sais pas s'il existe un moyen d'eviter ce phenomene.
     '''
     def decorator(func):
         setattr(cls,func.__name__,func)

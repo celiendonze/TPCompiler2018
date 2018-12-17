@@ -7,6 +7,11 @@ operations = {
     '-': lambda x, y : x - y,
     '*': lambda x, y : x * y,
     '/': lambda x, y : x / y,
+    '<': lambda x, y : x < y,
+    '>': lambda x, y : x > y,
+    '<=': lambda x, y : x <= y,
+    '>=': lambda x, y : x >= y,
+    '==': lambda x, y : x == y,
 }
 
 vars = {}
@@ -35,6 +40,10 @@ def execute(self):
 @addToClass(AST.StringNode)
 def execute(self):
     return str(self)
+
+@addToClass(AST.BooleanNode)
+def execute(self):
+    return self.val
 
 @addToClass(AST.AssignNode)
 def execute(self):

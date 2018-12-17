@@ -3,7 +3,9 @@ import ply.lex as lex
 reserved_words = (
 	'while',
 	'print',
-	'if'
+	'if',
+	'False',
+	'True',
 )
 
 tokens = (
@@ -12,9 +14,11 @@ tokens = (
 	'MUL_OP',
 	'IDENTIFIER',
 	'STRING',
+	'BOOLEAN',
+	'COMP_OP',
 ) + tuple(map(lambda s:s.upper(),reserved_words))
 
-literals = '();={}+'
+literals = '();={}+<>'
 
 def t_ADD_OP(t):
 	r'[+-]'
@@ -24,8 +28,16 @@ def t_MUL_OP(t):
 	r'[*/]'
 	return t
 
+def t_COMP_OP(t):
+	r'[<>][=]?'
+	return t
+
 def t_STRING(t):
 	r'"[^"]+"'
+	return t
+
+def t_BOOLEAN(t):
+	r'False|True'
 	return t
 
 def t_NUMBER(t):

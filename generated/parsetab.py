@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "leftADD_OPleftMUL_OPrightUMINUSADD_OP IDENTIFIER IF MUL_OP NUMBER PRINT STRING WHILE programme : statement  programme : statement ';' programme \n    | statement ';'  statement : assignation\n        | structure  statement : PRINT expression  structure : WHILE expression '{' programme '}' expression : STRING '+' STRINGexpression : expression ADD_OP expression\n    | expression MUL_OP expressionexpression : NUMBER\n        | IDENTIFIER expression : '(' expression ')'  expression : STRING  expression : ADD_OP expression %prec UMINUS assignation : IDENTIFIER '=' expression "
+_lr_signature = "leftADD_OPleftMUL_OPrightUMINUSADD_OP BOOLEAN FALSE IDENTIFIER IF MUL_OP NUMBER PRINT STRING TRUE WHILE programme : statement ';' programme \n    | statement ';' \n    | statement statement : assignation\n        | structure  statement : PRINT expression  structure : WHILE expression '{' programme '}' expression : STRING '+' STRINGexpression : expression ADD_OP expression\n    | expression MUL_OP expressionexpression : NUMBER\n        | IDENTIFIER expression : BOOLEAN expression : STRING expression : '(' expression ')'  expression : ADD_OP expression %prec UMINUS assignation : IDENTIFIER '=' expression "
     
-_lr_action_items = {'PRINT':([0,8,24,],[5,5,5,]),'IDENTIFIER':([0,5,7,8,11,14,15,18,19,24,],[6,13,13,6,13,13,13,13,13,6,]),'WHILE':([0,8,24,],[7,7,7,]),'$end':([1,2,3,4,8,9,10,12,13,17,21,23,25,26,27,28,30,],[0,-1,-4,-5,-3,-6,-14,-11,-12,-2,-15,-16,-9,-10,-8,-13,-7,]),'}':([2,3,4,8,9,10,12,13,17,21,23,25,26,27,28,29,30,],[-1,-4,-5,-3,-6,-14,-11,-12,-2,-15,-16,-9,-10,-8,-13,30,-7,]),';':([2,3,4,9,10,12,13,21,23,25,26,27,28,30,],[8,-4,-5,-6,-14,-11,-12,-15,-16,-9,-10,-8,-13,-7,]),'STRING':([5,7,11,14,15,18,19,20,],[10,10,10,10,10,10,10,27,]),'NUMBER':([5,7,11,14,15,18,19,],[12,12,12,12,12,12,12,]),'(':([5,7,11,14,15,18,19,],[14,14,14,14,14,14,14,]),'ADD_OP':([5,7,9,10,11,12,13,14,15,16,18,19,21,22,23,25,26,27,28,],[11,11,18,-14,11,-11,-12,11,11,18,11,11,-15,18,18,-9,-10,-8,-13,]),'=':([6,],[15,]),'MUL_OP':([9,10,12,13,16,21,22,23,25,26,27,28,],[19,-14,-11,-12,19,-15,19,19,19,-10,-8,-13,]),'+':([10,],[20,]),'{':([10,12,13,16,21,25,26,27,28,],[-14,-11,-12,24,-15,-9,-10,-8,-13,]),')':([10,12,13,21,22,25,26,27,28,],[-14,-11,-12,-15,28,-9,-10,-8,-13,]),}
+_lr_action_items = {'PRINT':([0,8,25,],[5,5,5,]),'IDENTIFIER':([0,5,7,8,11,15,16,19,20,25,],[6,13,13,6,13,13,13,13,13,6,]),'WHILE':([0,8,25,],[7,7,7,]),'$end':([1,2,3,4,8,9,10,12,13,14,18,22,24,26,27,28,29,31,],[0,-3,-4,-5,-2,-6,-14,-11,-12,-13,-1,-16,-17,-9,-10,-8,-15,-7,]),';':([2,3,4,9,10,12,13,14,22,24,26,27,28,29,31,],[8,-4,-5,-6,-14,-11,-12,-13,-16,-17,-9,-10,-8,-15,-7,]),'}':([2,3,4,8,9,10,12,13,14,18,22,24,26,27,28,29,30,31,],[-3,-4,-5,-2,-6,-14,-11,-12,-13,-1,-16,-17,-9,-10,-8,-15,31,-7,]),'STRING':([5,7,11,15,16,19,20,21,],[10,10,10,10,10,10,10,28,]),'NUMBER':([5,7,11,15,16,19,20,],[12,12,12,12,12,12,12,]),'BOOLEAN':([5,7,11,15,16,19,20,],[14,14,14,14,14,14,14,]),'(':([5,7,11,15,16,19,20,],[15,15,15,15,15,15,15,]),'ADD_OP':([5,7,9,10,11,12,13,14,15,16,17,19,20,22,23,24,26,27,28,29,],[11,11,19,-14,11,-11,-12,-13,11,11,19,11,11,-16,19,19,-9,-10,-8,-15,]),'=':([6,],[16,]),'MUL_OP':([9,10,12,13,14,17,22,23,24,26,27,28,29,],[20,-14,-11,-12,-13,20,-16,20,20,20,-10,-8,-15,]),'+':([10,],[21,]),'{':([10,12,13,14,17,22,26,27,28,29,],[-14,-11,-12,-13,25,-16,-9,-10,-8,-15,]),')':([10,12,13,14,22,23,26,27,28,29,],[-14,-11,-12,-13,-16,29,-9,-10,-8,-15,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'programme':([0,8,24,],[1,17,29,]),'statement':([0,8,24,],[2,2,2,]),'assignation':([0,8,24,],[3,3,3,]),'structure':([0,8,24,],[4,4,4,]),'expression':([5,7,11,14,15,18,19,],[9,16,21,22,23,25,26,]),}
+_lr_goto_items = {'programme':([0,8,25,],[1,18,30,]),'statement':([0,8,25,],[2,2,2,]),'assignation':([0,8,25,],[3,3,3,]),'structure':([0,8,25,],[4,4,4,]),'expression':([5,7,11,15,16,19,20,],[9,17,22,23,24,26,27,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,20 +27,21 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> programme","S'",1,None,None,None),
-  ('programme -> statement','programme',1,'p_programme_statement','parser5.py',9),
-  ('programme -> statement ; programme','programme',3,'p_programme_recursive','parser5.py',13),
-  ('programme -> statement ;','programme',2,'p_programme_recursive','parser5.py',14),
-  ('statement -> assignation','statement',1,'p_statement','parser5.py',21),
-  ('statement -> structure','statement',1,'p_statement','parser5.py',22),
-  ('statement -> PRINT expression','statement',2,'p_statement_print','parser5.py',26),
-  ('structure -> WHILE expression { programme }','structure',5,'p_structure','parser5.py',30),
-  ('expression -> STRING + STRING','expression',3,'p_expression_add_strings','parser5.py',34),
-  ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parser5.py',39),
-  ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parser5.py',40),
-  ('expression -> NUMBER','expression',1,'p_expression_num_or_var','parser5.py',44),
-  ('expression -> IDENTIFIER','expression',1,'p_expression_num_or_var','parser5.py',45),
-  ('expression -> ( expression )','expression',3,'p_expression_paren','parser5.py',49),
-  ('expression -> STRING','expression',1,'p_expression_string','parser5.py',53),
-  ('expression -> ADD_OP expression','expression',2,'p_minus','parser5.py',57),
-  ('assignation -> IDENTIFIER = expression','assignation',3,'p_assignation','parser5.py',61),
+  ('programme -> statement ; programme','programme',3,'p_programme_recursive','parser5.py',9),
+  ('programme -> statement ;','programme',2,'p_programme_recursive','parser5.py',10),
+  ('programme -> statement','programme',1,'p_programme_recursive','parser5.py',11),
+  ('statement -> assignation','statement',1,'p_statement','parser5.py',18),
+  ('statement -> structure','statement',1,'p_statement','parser5.py',19),
+  ('statement -> PRINT expression','statement',2,'p_statement_print','parser5.py',23),
+  ('structure -> WHILE expression { programme }','structure',5,'p_structure','parser5.py',27),
+  ('expression -> STRING + STRING','expression',3,'p_expression_add_strings','parser5.py',31),
+  ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parser5.py',36),
+  ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parser5.py',37),
+  ('expression -> NUMBER','expression',1,'p_expression_num_or_var','parser5.py',41),
+  ('expression -> IDENTIFIER','expression',1,'p_expression_num_or_var','parser5.py',42),
+  ('expression -> BOOLEAN','expression',1,'p_expression_boolean','parser5.py',46),
+  ('expression -> STRING','expression',1,'p_expression_string','parser5.py',50),
+  ('expression -> ( expression )','expression',3,'p_expression_paren','parser5.py',54),
+  ('expression -> ADD_OP expression','expression',2,'p_minus','parser5.py',58),
+  ('assignation -> IDENTIFIER = expression','assignation',3,'p_assignation','parser5.py',62),
 ]

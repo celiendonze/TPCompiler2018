@@ -1,0 +1,7 @@
+fun sayHello(){
+    print("Hello");
+}
+
+fun main(){
+    sayHello();
+}

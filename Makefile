@@ -5,3 +5,6 @@ clean:
 	@echo "cleaned" 
 1: 
 	@python recInterpreter.py input1.txt
+
+if:
+	@python recInterpreter.py inputIF.txt

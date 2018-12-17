@@ -1,0 +1,13 @@
+a = False;
+b = True;
+print(a);
+print(b);
+
+c = 2 > 1;
+print(c)
+
+d = 2 < 1;
+print(d)
+
+e = 2 <= 1;
+print(e)

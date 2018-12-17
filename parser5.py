@@ -5,13 +5,10 @@ import AST
 
 vars = {}
 
-def p_programme_statement(p):
-    ''' programme : statement '''
-    p[0] = AST.ProgramNode(p[1])
-
 def p_programme_recursive(p):
     ''' programme : statement ';' programme 
-    | statement ';' '''
+    | statement ';' 
+    | statement'''
     try:
         p[0] = AST.ProgramNode([p[1]]+p[3].children)
     except:
@@ -40,18 +37,26 @@ def p_expression_op(p):
     | expression MUL_OP expression'''
     p[0] = AST.OpNode(p[2], [p[1], p[3]])
 
+def p_expression_comp(p):
+    '''expression : expression COMP_OP expression'''
+    p[0] = AST.OpNode(p[2], [p[1], p[3]])
+
 def p_expression_num_or_var(p):
     '''expression : NUMBER
         | IDENTIFIER '''
     p[0] = AST.TokenNode(p[1])
 
-def p_expression_paren(p):
-    '''expression : '(' expression ')' '''
-    p[0] = p[2]
+def p_expression_boolean(p):
+    '''expression : BOOLEAN'''
+    p[0] = AST.BooleanNode(p[1])
 
 def p_expression_string(p):
     ''' expression : STRING '''
     p[0] = AST.StringNode(p[1].replace("\"",""))
+
+def p_expression_paren(p):
+    '''expression : '(' expression ')' '''
+    p[0] = p[2]
 
 def p_minus(p):
     ''' expression : ADD_OP expression %prec UMINUS'''
