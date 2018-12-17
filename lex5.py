@@ -16,9 +16,14 @@ tokens = (
 	'STRING',
 	'BOOLEAN',
 	'COMP_OP',
+	'COMMENT',
 ) + tuple(map(lambda s:s.upper(),reserved_words))
 
-literals = '();={}+<>'
+literals = '();={}+'
+
+def t_COMMENT(t):
+	r'/[*][^*]*[*]+([^/*][^*]*[*]+)*/|//[^\n]*'
+	pass
 
 def t_ADD_OP(t):
 	r'[+-]'
@@ -29,11 +34,11 @@ def t_MUL_OP(t):
 	return t
 
 def t_COMP_OP(t):
-	r'[<>][=]?'
+	r'[<>][=]?|=='
 	return t
 
 def t_STRING(t):
-	r'"[^"]+"'
+	r'"[^"]*"'
 	return t
 
 def t_BOOLEAN(t):

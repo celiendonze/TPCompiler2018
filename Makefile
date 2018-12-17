@@ -1,10 +1,29 @@
+COMMAND = 'recInterpreter.py'
+FILE = 'inputs/input1.txt'
+
 all:
-	@python recInterpreter.py input2.txt
+	@clear
+	@python ${COMMAND} ${FILE}
+	
+run:
+	@clear
+	@python ${COMMAND} ${FILE}
+
 clean:
 	@rm -rf ./generated/*;
 	@echo "cleaned" 
+
+lex:
+	${eval COMMAND = 'lex5.py'}
+
 1: 
-	@python recInterpreter.py input1.txt
+	${eval FILE = 'inputs/input1.txt'}
+
+2: 
+	${eval FILE = 'inputs/input2.txt'}
 
 if:
-	@python recInterpreter.py inputIF.txt
+	${eval FILE = 'inputs/inputIF.txt'}
+
+comment:
+	${eval FILE = 'inputs/inputComment.txt'}

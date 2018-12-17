@@ -133,7 +133,12 @@ class OpNode(Node):
         
     def __repr__(self):
         return "%s (%s)" % (self.op, self.nbargs)
-    
+
+class CompOpNode(Node):
+    def __init__(self, op, children):
+        Node.__init__(self,children)
+        self.op = op
+
 class AssignNode(Node):
     type = '='
     

@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "leftADD_OPleftMUL_OPrightUMINUSADD_OP BOOLEAN FALSE IDENTIFIER IF MUL_OP NUMBER PRINT STRING TRUE WHILE programme : statement ';' programme \n    | statement ';' \n    | statement statement : assignation\n        | structure  statement : PRINT expression  structure : WHILE expression '{' programme '}' expression : STRING '+' STRINGexpression : expression ADD_OP expression\n    | expression MUL_OP expressionexpression : NUMBER\n        | IDENTIFIER expression : BOOLEAN expression : STRING expression : '(' expression ')'  expression : ADD_OP expression %prec UMINUS assignation : IDENTIFIER '=' expression "
+_lr_signature = "leftADD_OPleftMUL_OPrightUMINUSADD_OP BOOLEAN COMMENT COMP_OP FALSE IDENTIFIER IF MUL_OP NUMBER PRINT STRING TRUE WHILE programme : statement ';' programme \n    | statement ';' \n    | statement statement : assignation\n        | structure  statement : PRINT expression  structure : WHILE expression '{' programme '}' expression : STRING '+' STRINGexpression : expression ADD_OP expression\n    | expression MUL_OP expressionexpression : expression COMP_OP expressionexpression : NUMBER\n        | IDENTIFIER expression : BOOLEAN expression : STRING expression : '(' expression ')'  expression : ADD_OP expression %prec UMINUS assignation : IDENTIFIER '=' expression "
     
-_lr_action_items = {'PRINT':([0,8,25,],[5,5,5,]),'IDENTIFIER':([0,5,7,8,11,15,16,19,20,25,],[6,13,13,6,13,13,13,13,13,6,]),'WHILE':([0,8,25,],[7,7,7,]),'$end':([1,2,3,4,8,9,10,12,13,14,18,22,24,26,27,28,29,31,],[0,-3,-4,-5,-2,-6,-14,-11,-12,-13,-1,-16,-17,-9,-10,-8,-15,-7,]),';':([2,3,4,9,10,12,13,14,22,24,26,27,28,29,31,],[8,-4,-5,-6,-14,-11,-12,-13,-16,-17,-9,-10,-8,-15,-7,]),'}':([2,3,4,8,9,10,12,13,14,18,22,24,26,27,28,29,30,31,],[-3,-4,-5,-2,-6,-14,-11,-12,-13,-1,-16,-17,-9,-10,-8,-15,31,-7,]),'STRING':([5,7,11,15,16,19,20,21,],[10,10,10,10,10,10,10,28,]),'NUMBER':([5,7,11,15,16,19,20,],[12,12,12,12,12,12,12,]),'BOOLEAN':([5,7,11,15,16,19,20,],[14,14,14,14,14,14,14,]),'(':([5,7,11,15,16,19,20,],[15,15,15,15,15,15,15,]),'ADD_OP':([5,7,9,10,11,12,13,14,15,16,17,19,20,22,23,24,26,27,28,29,],[11,11,19,-14,11,-11,-12,-13,11,11,19,11,11,-16,19,19,-9,-10,-8,-15,]),'=':([6,],[16,]),'MUL_OP':([9,10,12,13,14,17,22,23,24,26,27,28,29,],[20,-14,-11,-12,-13,20,-16,20,20,20,-10,-8,-15,]),'+':([10,],[21,]),'{':([10,12,13,14,17,22,26,27,28,29,],[-14,-11,-12,-13,25,-16,-9,-10,-8,-15,]),')':([10,12,13,14,22,23,26,27,28,29,],[-14,-11,-12,-13,-16,29,-9,-10,-8,-15,]),}
+_lr_action_items = {'PRINT':([0,8,26,],[5,5,5,]),'IDENTIFIER':([0,5,7,8,11,15,16,19,20,21,26,],[6,13,13,6,13,13,13,13,13,13,6,]),'WHILE':([0,8,26,],[7,7,7,]),'$end':([1,2,3,4,8,9,10,12,13,14,18,23,25,27,28,29,30,31,33,],[0,-3,-4,-5,-2,-6,-15,-12,-13,-14,-1,-17,-18,-9,-10,-11,-8,-16,-7,]),';':([2,3,4,9,10,12,13,14,23,25,27,28,29,30,31,33,],[8,-4,-5,-6,-15,-12,-13,-14,-17,-18,-9,-10,-11,-8,-16,-7,]),'}':([2,3,4,8,9,10,12,13,14,18,23,25,27,28,29,30,31,32,33,],[-3,-4,-5,-2,-6,-15,-12,-13,-14,-1,-17,-18,-9,-10,-11,-8,-16,33,-7,]),'STRING':([5,7,11,15,16,19,20,21,22,],[10,10,10,10,10,10,10,10,30,]),'NUMBER':([5,7,11,15,16,19,20,21,],[12,12,12,12,12,12,12,12,]),'BOOLEAN':([5,7,11,15,16,19,20,21,],[14,14,14,14,14,14,14,14,]),'(':([5,7,11,15,16,19,20,21,],[15,15,15,15,15,15,15,15,]),'ADD_OP':([5,7,9,10,11,12,13,14,15,16,17,19,20,21,23,24,25,27,28,29,30,31,],[11,11,19,-15,11,-12,-13,-14,11,11,19,11,11,11,-17,19,19,-9,-10,19,-8,-16,]),'=':([6,],[16,]),'MUL_OP':([9,10,12,13,14,17,23,24,25,27,28,29,30,31,],[20,-15,-12,-13,-14,20,-17,20,20,20,-10,20,-8,-16,]),'COMP_OP':([9,10,12,13,14,17,23,24,25,27,28,29,30,31,],[21,-15,-12,-13,-14,21,-17,21,21,-9,-10,21,-8,-16,]),'+':([10,],[22,]),'{':([10,12,13,14,17,23,27,28,29,30,31,],[-15,-12,-13,-14,26,-17,-9,-10,-11,-8,-16,]),')':([10,12,13,14,23,24,27,28,29,30,31,],[-15,-12,-13,-14,-17,31,-9,-10,-11,-8,-16,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'programme':([0,8,25,],[1,18,30,]),'statement':([0,8,25,],[2,2,2,]),'assignation':([0,8,25,],[3,3,3,]),'structure':([0,8,25,],[4,4,4,]),'expression':([5,7,11,15,16,19,20,],[9,17,22,23,24,26,27,]),}
+_lr_goto_items = {'programme':([0,8,26,],[1,18,32,]),'statement':([0,8,26,],[2,2,2,]),'assignation':([0,8,26,],[3,3,3,]),'structure':([0,8,26,],[4,4,4,]),'expression':([5,7,11,15,16,19,20,21,],[9,17,23,24,25,27,28,29,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -37,11 +37,12 @@ _lr_productions = [
   ('expression -> STRING + STRING','expression',3,'p_expression_add_strings','parser5.py',31),
   ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parser5.py',36),
   ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parser5.py',37),
-  ('expression -> NUMBER','expression',1,'p_expression_num_or_var','parser5.py',41),
-  ('expression -> IDENTIFIER','expression',1,'p_expression_num_or_var','parser5.py',42),
-  ('expression -> BOOLEAN','expression',1,'p_expression_boolean','parser5.py',46),
-  ('expression -> STRING','expression',1,'p_expression_string','parser5.py',50),
-  ('expression -> ( expression )','expression',3,'p_expression_paren','parser5.py',54),
-  ('expression -> ADD_OP expression','expression',2,'p_minus','parser5.py',58),
-  ('assignation -> IDENTIFIER = expression','assignation',3,'p_assignation','parser5.py',62),
+  ('expression -> expression COMP_OP expression','expression',3,'p_expression_comp','parser5.py',41),
+  ('expression -> NUMBER','expression',1,'p_expression_num_or_var','parser5.py',45),
+  ('expression -> IDENTIFIER','expression',1,'p_expression_num_or_var','parser5.py',46),
+  ('expression -> BOOLEAN','expression',1,'p_expression_boolean','parser5.py',50),
+  ('expression -> STRING','expression',1,'p_expression_string','parser5.py',54),
+  ('expression -> ( expression )','expression',3,'p_expression_paren','parser5.py',58),
+  ('expression -> ADD_OP expression','expression',2,'p_minus','parser5.py',62),
+  ('assignation -> IDENTIFIER = expression','assignation',3,'p_assignation','parser5.py',66),
 ]

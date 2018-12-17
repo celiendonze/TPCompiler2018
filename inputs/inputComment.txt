@@ -1,0 +1,5 @@
+print("hello"); //ceci est un commentaire
+/*
+ceci est un commentaire multiligne
+*/
+print("encore du code")

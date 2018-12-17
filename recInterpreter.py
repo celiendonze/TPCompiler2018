@@ -7,6 +7,9 @@ operations = {
     '-': lambda x, y : x - y,
     '*': lambda x, y : x * y,
     '/': lambda x, y : x / y,
+}
+
+compOperations = {
     '<': lambda x, y : x < y,
     '>': lambda x, y : x > y,
     '<=': lambda x, y : x <= y,
@@ -36,6 +39,17 @@ def execute(self):
     if len(args) == 1:
         args.insert(0, 0)
     return reduce(operations[self.op], args)
+
+@addToClass(AST.CompOpNode)
+def execute(self):
+    args = [c.execute() for c in self.children]
+    if len(args) == 2:
+        try:
+            return compOperations[self.op](float(args[0]), float(args[1]))
+        except:
+            print(f"*** Error : Invalid comparison between operands {args[0]} and {args[1]}")
+    else:
+        return False
 
 @addToClass(AST.StringNode)
 def execute(self):

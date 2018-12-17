@@ -39,7 +39,7 @@ def p_expression_op(p):
 
 def p_expression_comp(p):
     '''expression : expression COMP_OP expression'''
-    p[0] = AST.OpNode(p[2], [p[1], p[3]])
+    p[0] = AST.CompOpNode(p[2], [p[1], p[3]])
 
 def p_expression_num_or_var(p):
     '''expression : NUMBER
