@@ -25,5 +25,8 @@ lex:
 if:
 	${eval FILE = 'inputs/inputIF.txt'}
 
-comment:
+com:
 	${eval FILE = 'inputs/inputComment.txt'}
+
+fun:
+	${eval FILE = 'inputs/inputFUN.txt'}
