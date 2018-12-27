@@ -145,6 +145,9 @@ class AssignNode(Node):
 class PrintNode(Node):
     type = 'print'
     
+class IfNode(Node):
+    type = 'if'
+
 class WhileNode(Node):
     type = 'while'
     

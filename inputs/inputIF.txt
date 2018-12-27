@@ -1,5 +1,10 @@
-print(2 > 1);
-print(2 < 1);
-print(1 >= 1);
-print(1 <= 1);
-print(1 == 1);
+a = 10;
+if (a > 5){
+    print("a > 5");
+}
+
+a = 5;
+
+if (a > 5){
+    print("a > 5");
+}

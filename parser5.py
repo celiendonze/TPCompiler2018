@@ -3,16 +3,18 @@ import ply.yacc as yacc
 from lex5 import tokens
 import AST
 
-vars = {}
-
 def p_programme_recursive(p):
-    ''' programme : statement ';' programme 
+    ''' programme : statement ';' programme
+    | structure programme
     | statement ';' 
     | statement'''
     try:
         p[0] = AST.ProgramNode([p[1]]+p[3].children)
     except:
-        p[0] = AST.ProgramNode([p[1]])
+        try:
+            p[0] = AST.ProgramNode([p[1]]+p[2].children)
+        except:
+            p[0] = AST.ProgramNode([p[1]])
         
 def p_statement(p):
     ''' statement : assignation
@@ -23,9 +25,13 @@ def p_statement_print(p):
     ''' statement : PRINT expression '''
     p[0] = AST.PrintNode(p[2])
 
-def p_structure(p):
+def p_structure_while(p):
     ''' structure : WHILE expression '{' programme '}' '''
     p[0] = AST.WhileNode([p[2],p[4]])
+
+def p_structure_if(p):
+    ''' structure : IF expression '{' programme '}' '''
+    p[0] = AST.IfNode([p[2], p[4]])
 
 def p_expression_add_strings(p):
     '''expression : STRING '+' STRING'''

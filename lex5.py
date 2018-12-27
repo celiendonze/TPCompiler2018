@@ -4,8 +4,6 @@ reserved_words = (
 	'while',
 	'print',
 	'if',
-	'False',
-	'True',
 )
 
 tokens = (
@@ -16,7 +14,6 @@ tokens = (
 	'STRING',
 	'BOOLEAN',
 	'COMP_OP',
-	'COMMENT',
 ) + tuple(map(lambda s:s.upper(),reserved_words))
 
 literals = '();={}+'
