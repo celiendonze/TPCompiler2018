@@ -1,3 +1,21 @@
+/*
+    Currently tested:
+        -   Functions with parameters 
+        -   Functions without parameters
+        -   Function call with wrong number of parameters   
+        -   Unexisting function call
+        -   Printing integer
+        -   Printing string
+        -   Printing variable
+        -   Boolean assignation
+        -   Boolean testing
+        -   While with variables
+
+    Add things to test !
+    E.g. operations, maybe test return value if done ?, global vs local variables
+*/
+
+
 fun functionWithSeveralParameters(param1, param2, param3)
 {
     print(param1);
@@ -31,6 +49,9 @@ functionWithoutParameters();
 
 //Here we test the error when the parameters number doesn't corresponds
 functionWithoutParameters(12);
+
+//Here we test the call to unexisting function
+UnexistingFunction();
 
 staticNum = 3;
 descendingNum = 10;
