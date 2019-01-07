@@ -1,0 +1,42 @@
+fun functionWithSeveralParameters(param1, param2, param3)
+{
+    print(param1);
+    print(param2);
+    print(param3);
+    
+    return
+}
+
+fun functionWithoutParameters()
+{
+    print("We have no parameters");
+    return
+}
+
+fun checkIfNumbersAreEquals(num1, num2)
+{
+    test = num1 == num2;
+    if(test)
+    {
+        print("They are equal!");
+    }
+
+    return
+}
+
+
+
+functionWithSeveralParameters("We " + "have ", 12*3/6/2, "parameters"); 
+functionWithoutParameters();
+
+//Here we test the error when the parameters number doesn't corresponds
+functionWithoutParameters(12);
+
+staticNum = 3;
+descendingNum = 10;
+
+while(staticNum < descendingNum)
+{
+    checkIfNumbersAreEquals(staticNum, descendingNum);
+    descendingNum = descendingNum-1;
+}

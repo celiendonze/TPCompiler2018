@@ -47,7 +47,7 @@ def p_funcDec(p):
     '''
     p[0] = AST.FunNode(p[2], p[7], p[4])
     
-#This is the rule for the parameters of the function call. We can call a function with a operation, a variable, a number
+#This is the rule for the parameters of the function call. We can call a function with an operation, a variable, a number, ...
 def p_paramsCall(p):
     '''paramsCall : expression ',' paramsCall
     | expression
