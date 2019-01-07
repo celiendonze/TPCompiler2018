@@ -22,6 +22,7 @@ Rule 16    expression -> STRING
 Rule 17    expression -> ( expression )
 Rule 18    expression -> ADD_OP expression
 Rule 19    assignation -> IDENTIFIER = expression
+Rule 20    assignation -> GLOBAL IDENTIFIER = expression
 
 Terminals, with rules where they appear
 
@@ -29,11 +30,12 @@ Terminals, with rules where they appear
 )                    : 17
 +                    : 9
 ;                    : 1 3
-=                    : 19
+=                    : 19 20
 ADD_OP               : 10 18
 BOOLEAN              : 15
 COMP_OP              : 12
-IDENTIFIER           : 14 19
+GLOBAL               : 20
+IDENTIFIER           : 14 19 20
 IF                   : 8
 MUL_OP               : 11
 NUMBER               : 13
@@ -47,7 +49,7 @@ error                :
 Nonterminals, with rules where they appear
 
 assignation          : 5
-expression           : 6 7 8 10 10 11 11 12 12 17 18 19
+expression           : 6 7 8 10 10 11 11 12 12 17 18 19 20
 programme            : 1 2 7 8 0
 statement            : 1 3
 structure            : 2 4
@@ -66,11 +68,13 @@ state 0
     (7) structure -> . WHILE expression { programme }
     (8) structure -> . IF expression { programme }
     (19) assignation -> . IDENTIFIER = expression
+    (20) assignation -> . GLOBAL IDENTIFIER = expression
 
     PRINT           shift and go to state 5
     WHILE           shift and go to state 6
     IF              shift and go to state 7
     IDENTIFIER      shift and go to state 8
+    GLOBAL          shift and go to state 9
 
     programme                      shift and go to state 1
     statement                      shift and go to state 2
@@ -88,7 +92,7 @@ state 2
     (1) programme -> statement . ; programme
     (3) programme -> statement . ;
 
-    ;               shift and go to state 9
+    ;               shift and go to state 10
 
 
 state 3
@@ -104,6 +108,7 @@ state 3
     (7) structure -> . WHILE expression { programme }
     (8) structure -> . IF expression { programme }
     (19) assignation -> . IDENTIFIER = expression
+    (20) assignation -> . GLOBAL IDENTIFIER = expression
 
     $end            reduce using rule 4 (programme -> structure .)
     }               reduce using rule 4 (programme -> structure .)
@@ -111,9 +116,10 @@ state 3
     WHILE           shift and go to state 6
     IF              shift and go to state 7
     IDENTIFIER      shift and go to state 8
+    GLOBAL          shift and go to state 9
 
     structure                      shift and go to state 3
-    programme                      shift and go to state 10
+    programme                      shift and go to state 11
     statement                      shift and go to state 2
     assignation                    shift and go to state 4
 
@@ -138,14 +144,14 @@ state 5
     (17) expression -> . ( expression )
     (18) expression -> . ADD_OP expression
 
-    STRING          shift and go to state 12
-    NUMBER          shift and go to state 14
-    IDENTIFIER      shift and go to state 15
-    BOOLEAN         shift and go to state 16
-    (               shift and go to state 17
-    ADD_OP          shift and go to state 13
+    STRING          shift and go to state 13
+    NUMBER          shift and go to state 15
+    IDENTIFIER      shift and go to state 16
+    BOOLEAN         shift and go to state 17
+    (               shift and go to state 18
+    ADD_OP          shift and go to state 14
 
-    expression                     shift and go to state 11
+    expression                     shift and go to state 12
 
 state 6
 
@@ -161,14 +167,14 @@ state 6
     (17) expression -> . ( expression )
     (18) expression -> . ADD_OP expression
 
-    STRING          shift and go to state 12
-    NUMBER          shift and go to state 14
-    IDENTIFIER      shift and go to state 15
-    BOOLEAN         shift and go to state 16
-    (               shift and go to state 17
-    ADD_OP          shift and go to state 13
+    STRING          shift and go to state 13
+    NUMBER          shift and go to state 15
+    IDENTIFIER      shift and go to state 16
+    BOOLEAN         shift and go to state 17
+    (               shift and go to state 18
+    ADD_OP          shift and go to state 14
 
-    expression                     shift and go to state 18
+    expression                     shift and go to state 19
 
 state 7
 
@@ -184,23 +190,30 @@ state 7
     (17) expression -> . ( expression )
     (18) expression -> . ADD_OP expression
 
-    STRING          shift and go to state 12
-    NUMBER          shift and go to state 14
-    IDENTIFIER      shift and go to state 15
-    BOOLEAN         shift and go to state 16
-    (               shift and go to state 17
-    ADD_OP          shift and go to state 13
+    STRING          shift and go to state 13
+    NUMBER          shift and go to state 15
+    IDENTIFIER      shift and go to state 16
+    BOOLEAN         shift and go to state 17
+    (               shift and go to state 18
+    ADD_OP          shift and go to state 14
 
-    expression                     shift and go to state 19
+    expression                     shift and go to state 20
 
 state 8
 
     (19) assignation -> IDENTIFIER . = expression
 
-    =               shift and go to state 20
+    =               shift and go to state 21
 
 
 state 9
+
+    (20) assignation -> GLOBAL . IDENTIFIER = expression
+
+    IDENTIFIER      shift and go to state 22
+
+
+state 10
 
     (1) programme -> statement ; . programme
     (3) programme -> statement ; .
@@ -213,6 +226,7 @@ state 9
     (7) structure -> . WHILE expression { programme }
     (8) structure -> . IF expression { programme }
     (19) assignation -> . IDENTIFIER = expression
+    (20) assignation -> . GLOBAL IDENTIFIER = expression
 
     $end            reduce using rule 3 (programme -> statement ; .)
     }               reduce using rule 3 (programme -> statement ; .)
@@ -220,13 +234,14 @@ state 9
     WHILE           shift and go to state 6
     IF              shift and go to state 7
     IDENTIFIER      shift and go to state 8
+    GLOBAL          shift and go to state 9
 
     statement                      shift and go to state 2
-    programme                      shift and go to state 21
+    programme                      shift and go to state 23
     structure                      shift and go to state 3
     assignation                    shift and go to state 4
 
-state 10
+state 11
 
     (2) programme -> structure programme .
 
@@ -234,7 +249,7 @@ state 10
     }               reduce using rule 2 (programme -> structure programme .)
 
 
-state 11
+state 12
 
     (6) statement -> PRINT expression .
     (10) expression -> expression . ADD_OP expression
@@ -242,17 +257,17 @@ state 11
     (12) expression -> expression . COMP_OP expression
 
     ;               reduce using rule 6 (statement -> PRINT expression .)
-    ADD_OP          shift and go to state 22
-    MUL_OP          shift and go to state 23
-    COMP_OP         shift and go to state 24
+    ADD_OP          shift and go to state 24
+    MUL_OP          shift and go to state 25
+    COMP_OP         shift and go to state 26
 
 
-state 12
+state 13
 
     (9) expression -> STRING . + STRING
     (16) expression -> STRING .
 
-    +               shift and go to state 25
+    +               shift and go to state 27
     ADD_OP          reduce using rule 16 (expression -> STRING .)
     MUL_OP          reduce using rule 16 (expression -> STRING .)
     COMP_OP         reduce using rule 16 (expression -> STRING .)
@@ -261,7 +276,7 @@ state 12
     )               reduce using rule 16 (expression -> STRING .)
 
 
-state 13
+state 14
 
     (18) expression -> ADD_OP . expression
     (9) expression -> . STRING + STRING
@@ -275,16 +290,16 @@ state 13
     (17) expression -> . ( expression )
     (18) expression -> . ADD_OP expression
 
-    STRING          shift and go to state 12
-    NUMBER          shift and go to state 14
-    IDENTIFIER      shift and go to state 15
-    BOOLEAN         shift and go to state 16
-    (               shift and go to state 17
-    ADD_OP          shift and go to state 13
+    STRING          shift and go to state 13
+    NUMBER          shift and go to state 15
+    IDENTIFIER      shift and go to state 16
+    BOOLEAN         shift and go to state 17
+    (               shift and go to state 18
+    ADD_OP          shift and go to state 14
 
-    expression                     shift and go to state 26
+    expression                     shift and go to state 28
 
-state 14
+state 15
 
     (13) expression -> NUMBER .
 
@@ -296,7 +311,7 @@ state 14
     )               reduce using rule 13 (expression -> NUMBER .)
 
 
-state 15
+state 16
 
     (14) expression -> IDENTIFIER .
 
@@ -308,7 +323,7 @@ state 15
     )               reduce using rule 14 (expression -> IDENTIFIER .)
 
 
-state 16
+state 17
 
     (15) expression -> BOOLEAN .
 
@@ -320,7 +335,7 @@ state 16
     )               reduce using rule 15 (expression -> BOOLEAN .)
 
 
-state 17
+state 18
 
     (17) expression -> ( . expression )
     (9) expression -> . STRING + STRING
@@ -334,42 +349,42 @@ state 17
     (17) expression -> . ( expression )
     (18) expression -> . ADD_OP expression
 
-    STRING          shift and go to state 12
-    NUMBER          shift and go to state 14
-    IDENTIFIER      shift and go to state 15
-    BOOLEAN         shift and go to state 16
-    (               shift and go to state 17
-    ADD_OP          shift and go to state 13
+    STRING          shift and go to state 13
+    NUMBER          shift and go to state 15
+    IDENTIFIER      shift and go to state 16
+    BOOLEAN         shift and go to state 17
+    (               shift and go to state 18
+    ADD_OP          shift and go to state 14
 
-    expression                     shift and go to state 27
+    expression                     shift and go to state 29
 
-state 18
+state 19
 
     (7) structure -> WHILE expression . { programme }
     (10) expression -> expression . ADD_OP expression
     (11) expression -> expression . MUL_OP expression
     (12) expression -> expression . COMP_OP expression
 
-    {               shift and go to state 28
-    ADD_OP          shift and go to state 22
-    MUL_OP          shift and go to state 23
-    COMP_OP         shift and go to state 24
+    {               shift and go to state 30
+    ADD_OP          shift and go to state 24
+    MUL_OP          shift and go to state 25
+    COMP_OP         shift and go to state 26
 
 
-state 19
+state 20
 
     (8) structure -> IF expression . { programme }
     (10) expression -> expression . ADD_OP expression
     (11) expression -> expression . MUL_OP expression
     (12) expression -> expression . COMP_OP expression
 
-    {               shift and go to state 29
-    ADD_OP          shift and go to state 22
-    MUL_OP          shift and go to state 23
-    COMP_OP         shift and go to state 24
+    {               shift and go to state 31
+    ADD_OP          shift and go to state 24
+    MUL_OP          shift and go to state 25
+    COMP_OP         shift and go to state 26
 
 
-state 20
+state 21
 
     (19) assignation -> IDENTIFIER = . expression
     (9) expression -> . STRING + STRING
@@ -383,16 +398,23 @@ state 20
     (17) expression -> . ( expression )
     (18) expression -> . ADD_OP expression
 
-    STRING          shift and go to state 12
-    NUMBER          shift and go to state 14
-    IDENTIFIER      shift and go to state 15
-    BOOLEAN         shift and go to state 16
-    (               shift and go to state 17
-    ADD_OP          shift and go to state 13
+    STRING          shift and go to state 13
+    NUMBER          shift and go to state 15
+    IDENTIFIER      shift and go to state 16
+    BOOLEAN         shift and go to state 17
+    (               shift and go to state 18
+    ADD_OP          shift and go to state 14
 
-    expression                     shift and go to state 30
+    expression                     shift and go to state 32
 
-state 21
+state 22
+
+    (20) assignation -> GLOBAL IDENTIFIER . = expression
+
+    =               shift and go to state 33
+
+
+state 23
 
     (1) programme -> statement ; programme .
 
@@ -400,7 +422,7 @@ state 21
     }               reduce using rule 1 (programme -> statement ; programme .)
 
 
-state 22
+state 24
 
     (10) expression -> expression ADD_OP . expression
     (9) expression -> . STRING + STRING
@@ -414,16 +436,16 @@ state 22
     (17) expression -> . ( expression )
     (18) expression -> . ADD_OP expression
 
-    STRING          shift and go to state 12
-    NUMBER          shift and go to state 14
-    IDENTIFIER      shift and go to state 15
-    BOOLEAN         shift and go to state 16
-    (               shift and go to state 17
-    ADD_OP          shift and go to state 13
+    STRING          shift and go to state 13
+    NUMBER          shift and go to state 15
+    IDENTIFIER      shift and go to state 16
+    BOOLEAN         shift and go to state 17
+    (               shift and go to state 18
+    ADD_OP          shift and go to state 14
 
-    expression                     shift and go to state 31
+    expression                     shift and go to state 34
 
-state 23
+state 25
 
     (11) expression -> expression MUL_OP . expression
     (9) expression -> . STRING + STRING
@@ -437,16 +459,16 @@ state 23
     (17) expression -> . ( expression )
     (18) expression -> . ADD_OP expression
 
-    STRING          shift and go to state 12
-    NUMBER          shift and go to state 14
-    IDENTIFIER      shift and go to state 15
-    BOOLEAN         shift and go to state 16
-    (               shift and go to state 17
-    ADD_OP          shift and go to state 13
+    STRING          shift and go to state 13
+    NUMBER          shift and go to state 15
+    IDENTIFIER      shift and go to state 16
+    BOOLEAN         shift and go to state 17
+    (               shift and go to state 18
+    ADD_OP          shift and go to state 14
 
-    expression                     shift and go to state 32
+    expression                     shift and go to state 35
 
-state 24
+state 26
 
     (12) expression -> expression COMP_OP . expression
     (9) expression -> . STRING + STRING
@@ -460,23 +482,23 @@ state 24
     (17) expression -> . ( expression )
     (18) expression -> . ADD_OP expression
 
-    STRING          shift and go to state 12
-    NUMBER          shift and go to state 14
-    IDENTIFIER      shift and go to state 15
-    BOOLEAN         shift and go to state 16
-    (               shift and go to state 17
-    ADD_OP          shift and go to state 13
+    STRING          shift and go to state 13
+    NUMBER          shift and go to state 15
+    IDENTIFIER      shift and go to state 16
+    BOOLEAN         shift and go to state 17
+    (               shift and go to state 18
+    ADD_OP          shift and go to state 14
 
-    expression                     shift and go to state 33
+    expression                     shift and go to state 36
 
-state 25
+state 27
 
     (9) expression -> STRING + . STRING
 
-    STRING          shift and go to state 34
+    STRING          shift and go to state 37
 
 
-state 26
+state 28
 
     (18) expression -> ADD_OP expression .
     (10) expression -> expression . ADD_OP expression
@@ -490,25 +512,25 @@ state 26
     {               reduce using rule 18 (expression -> ADD_OP expression .)
     )               reduce using rule 18 (expression -> ADD_OP expression .)
 
-  ! ADD_OP          [ shift and go to state 22 ]
-  ! MUL_OP          [ shift and go to state 23 ]
-  ! COMP_OP         [ shift and go to state 24 ]
+  ! ADD_OP          [ shift and go to state 24 ]
+  ! MUL_OP          [ shift and go to state 25 ]
+  ! COMP_OP         [ shift and go to state 26 ]
 
 
-state 27
+state 29
 
     (17) expression -> ( expression . )
     (10) expression -> expression . ADD_OP expression
     (11) expression -> expression . MUL_OP expression
     (12) expression -> expression . COMP_OP expression
 
-    )               shift and go to state 35
-    ADD_OP          shift and go to state 22
-    MUL_OP          shift and go to state 23
-    COMP_OP         shift and go to state 24
+    )               shift and go to state 38
+    ADD_OP          shift and go to state 24
+    MUL_OP          shift and go to state 25
+    COMP_OP         shift and go to state 26
 
 
-state 28
+state 30
 
     (7) structure -> WHILE expression { . programme }
     (1) programme -> . statement ; programme
@@ -520,18 +542,20 @@ state 28
     (7) structure -> . WHILE expression { programme }
     (8) structure -> . IF expression { programme }
     (19) assignation -> . IDENTIFIER = expression
+    (20) assignation -> . GLOBAL IDENTIFIER = expression
 
     PRINT           shift and go to state 5
     WHILE           shift and go to state 6
     IF              shift and go to state 7
     IDENTIFIER      shift and go to state 8
+    GLOBAL          shift and go to state 9
 
-    programme                      shift and go to state 36
+    programme                      shift and go to state 39
     statement                      shift and go to state 2
     structure                      shift and go to state 3
     assignation                    shift and go to state 4
 
-state 29
+state 31
 
     (8) structure -> IF expression { . programme }
     (1) programme -> . statement ; programme
@@ -543,18 +567,20 @@ state 29
     (7) structure -> . WHILE expression { programme }
     (8) structure -> . IF expression { programme }
     (19) assignation -> . IDENTIFIER = expression
+    (20) assignation -> . GLOBAL IDENTIFIER = expression
 
     PRINT           shift and go to state 5
     WHILE           shift and go to state 6
     IF              shift and go to state 7
     IDENTIFIER      shift and go to state 8
+    GLOBAL          shift and go to state 9
 
-    programme                      shift and go to state 37
+    programme                      shift and go to state 40
     statement                      shift and go to state 2
     structure                      shift and go to state 3
     assignation                    shift and go to state 4
 
-state 30
+state 32
 
     (19) assignation -> IDENTIFIER = expression .
     (10) expression -> expression . ADD_OP expression
@@ -562,12 +588,35 @@ state 30
     (12) expression -> expression . COMP_OP expression
 
     ;               reduce using rule 19 (assignation -> IDENTIFIER = expression .)
-    ADD_OP          shift and go to state 22
-    MUL_OP          shift and go to state 23
-    COMP_OP         shift and go to state 24
+    ADD_OP          shift and go to state 24
+    MUL_OP          shift and go to state 25
+    COMP_OP         shift and go to state 26
 
 
-state 31
+state 33
+
+    (20) assignation -> GLOBAL IDENTIFIER = . expression
+    (9) expression -> . STRING + STRING
+    (10) expression -> . expression ADD_OP expression
+    (11) expression -> . expression MUL_OP expression
+    (12) expression -> . expression COMP_OP expression
+    (13) expression -> . NUMBER
+    (14) expression -> . IDENTIFIER
+    (15) expression -> . BOOLEAN
+    (16) expression -> . STRING
+    (17) expression -> . ( expression )
+    (18) expression -> . ADD_OP expression
+
+    STRING          shift and go to state 13
+    NUMBER          shift and go to state 15
+    IDENTIFIER      shift and go to state 16
+    BOOLEAN         shift and go to state 17
+    (               shift and go to state 18
+    ADD_OP          shift and go to state 14
+
+    expression                     shift and go to state 41
+
+state 34
 
     (10) expression -> expression ADD_OP expression .
     (10) expression -> expression . ADD_OP expression
@@ -578,15 +627,15 @@ state 31
     ;               reduce using rule 10 (expression -> expression ADD_OP expression .)
     {               reduce using rule 10 (expression -> expression ADD_OP expression .)
     )               reduce using rule 10 (expression -> expression ADD_OP expression .)
-    MUL_OP          shift and go to state 23
-    COMP_OP         shift and go to state 24
+    MUL_OP          shift and go to state 25
+    COMP_OP         shift and go to state 26
 
   ! MUL_OP          [ reduce using rule 10 (expression -> expression ADD_OP expression .) ]
   ! COMP_OP         [ reduce using rule 10 (expression -> expression ADD_OP expression .) ]
-  ! ADD_OP          [ shift and go to state 22 ]
+  ! ADD_OP          [ shift and go to state 24 ]
 
 
-state 32
+state 35
 
     (11) expression -> expression MUL_OP expression .
     (10) expression -> expression . ADD_OP expression
@@ -598,14 +647,14 @@ state 32
     ;               reduce using rule 11 (expression -> expression MUL_OP expression .)
     {               reduce using rule 11 (expression -> expression MUL_OP expression .)
     )               reduce using rule 11 (expression -> expression MUL_OP expression .)
-    COMP_OP         shift and go to state 24
+    COMP_OP         shift and go to state 26
 
   ! COMP_OP         [ reduce using rule 11 (expression -> expression MUL_OP expression .) ]
-  ! ADD_OP          [ shift and go to state 22 ]
-  ! MUL_OP          [ shift and go to state 23 ]
+  ! ADD_OP          [ shift and go to state 24 ]
+  ! MUL_OP          [ shift and go to state 25 ]
 
 
-state 33
+state 36
 
     (12) expression -> expression COMP_OP expression .
     (10) expression -> expression . ADD_OP expression
@@ -619,12 +668,12 @@ state 33
     {               reduce using rule 12 (expression -> expression COMP_OP expression .)
     )               reduce using rule 12 (expression -> expression COMP_OP expression .)
 
-  ! ADD_OP          [ shift and go to state 22 ]
-  ! MUL_OP          [ shift and go to state 23 ]
-  ! COMP_OP         [ shift and go to state 24 ]
+  ! ADD_OP          [ shift and go to state 24 ]
+  ! MUL_OP          [ shift and go to state 25 ]
+  ! COMP_OP         [ shift and go to state 26 ]
 
 
-state 34
+state 37
 
     (9) expression -> STRING + STRING .
 
@@ -636,7 +685,7 @@ state 34
     )               reduce using rule 9 (expression -> STRING + STRING .)
 
 
-state 35
+state 38
 
     (17) expression -> ( expression ) .
 
@@ -648,21 +697,34 @@ state 35
     )               reduce using rule 17 (expression -> ( expression ) .)
 
 
-state 36
+state 39
 
     (7) structure -> WHILE expression { programme . }
 
-    }               shift and go to state 38
+    }               shift and go to state 42
 
 
-state 37
+state 40
 
     (8) structure -> IF expression { programme . }
 
-    }               shift and go to state 39
+    }               shift and go to state 43
 
 
-state 38
+state 41
+
+    (20) assignation -> GLOBAL IDENTIFIER = expression .
+    (10) expression -> expression . ADD_OP expression
+    (11) expression -> expression . MUL_OP expression
+    (12) expression -> expression . COMP_OP expression
+
+    ;               reduce using rule 20 (assignation -> GLOBAL IDENTIFIER = expression .)
+    ADD_OP          shift and go to state 24
+    MUL_OP          shift and go to state 25
+    COMP_OP         shift and go to state 26
+
+
+state 42
 
     (7) structure -> WHILE expression { programme } .
 
@@ -670,11 +732,12 @@ state 38
     WHILE           reduce using rule 7 (structure -> WHILE expression { programme } .)
     IF              reduce using rule 7 (structure -> WHILE expression { programme } .)
     IDENTIFIER      reduce using rule 7 (structure -> WHILE expression { programme } .)
+    GLOBAL          reduce using rule 7 (structure -> WHILE expression { programme } .)
     $end            reduce using rule 7 (structure -> WHILE expression { programme } .)
     }               reduce using rule 7 (structure -> WHILE expression { programme } .)
 
 
-state 39
+state 43
 
     (8) structure -> IF expression { programme } .
 
@@ -682,6 +745,7 @@ state 39
     WHILE           reduce using rule 8 (structure -> IF expression { programme } .)
     IF              reduce using rule 8 (structure -> IF expression { programme } .)
     IDENTIFIER      reduce using rule 8 (structure -> IF expression { programme } .)
+    GLOBAL          reduce using rule 8 (structure -> IF expression { programme } .)
     $end            reduce using rule 8 (structure -> IF expression { programme } .)
     }               reduce using rule 8 (structure -> IF expression { programme } .)
 

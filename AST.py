@@ -140,6 +140,9 @@ class CompOpNode(Node):
         self.op = op
 
 class AssignNode(Node):
+    def __init__(self, children, isGlobal=False):
+        Node.__init__(self, children)
+        self.isGlobal = isGlobal
     type = '='
     
 class PrintNode(Node):

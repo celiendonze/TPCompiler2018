@@ -20,6 +20,7 @@ compOperations = {
 }
 
 vars = {}
+globalVars = {}
 
 @addToClass(AST.ProgramNode)
 def execute(self):
@@ -30,7 +31,11 @@ def execute(self):
 def execute(self):
     if isinstance(self.tok, str):
         try:
-            return vars[self.tok]
+            # we check if it exists in the local variables, if not we also check the globals and otherwise it's undefined
+            try:
+                return vars[self.tok]
+            except:
+                return globalVars[self.tok]
         except KeyError:
             print("*** Error : variable %s undefined!" % self.tok)
     return self.tok
@@ -66,7 +71,10 @@ def execute(self):
 
 @addToClass(AST.AssignNode)
 def execute(self):
-    vars[self.children[0].tok] = self.children[1].execute()
+    if(not self.isGlobal):
+        vars[self.children[0].tok] = self.children[1].execute()
+    else:
+        globalVars[self.children[0].tok] = self.children[1].execute()
 
 @addToClass(AST.PrintNode)
 def execute(self):

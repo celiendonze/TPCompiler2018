@@ -68,8 +68,13 @@ def p_minus(p):
     p[0] = AST.OpNode(p[1], [p[2]])
     	
 def p_assignation(p):
-    ''' assignation : IDENTIFIER '=' expression '''
-    p[0] = AST.AssignNode([AST.TokenNode(p[1]),p[3]])
+    ''' assignation : IDENTIFIER '=' expression
+    | GLOBAL IDENTIFIER '=' expression  '''
+    # if it's the second part of the rule it means we have 4 lexemes and it's a global var and we set True to the isGlobal parameter
+    try:
+        p[0] = AST.AssignNode([AST.TokenNode(p[2]),p[4], True])
+    except:
+        p[0] = AST.AssignNode([AST.TokenNode(p[1]),p[3]])
 
 def p_error(p):
     if p:
