@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "leftADD_OPleftMUL_OPrightUMINUSADD_OP BOOLEAN COMP_OP IDENTIFIER IF MUL_OP NUMBER PRINT STRING WHILE programme : statement ';' programme\n    | structure programme\n    | statement ';' \n    | statement statement : assignation\n        | structure  statement : PRINT expression  structure : WHILE expression '{' programme '}'  structure : IF expression '{' programme '}' expression : STRING '+' STRINGexpression : expression ADD_OP expression\n    | expression MUL_OP expressionexpression : expression COMP_OP expressionexpression : NUMBER\n        | IDENTIFIER expression : BOOLEAN expression : STRING expression : '(' expression ')'  expression : ADD_OP expression %prec UMINUS assignation : IDENTIFIER '=' expression "
+_lr_signature = "leftADD_OPleftMUL_OPrightUMINUSADD_OP BOOLEAN COMP_OP FUN IDENTIFIER IF MUL_OP NUMBER PRINT STRING WHILEnewprogram : func newprogram\n    | func\n    func : FUN IDENTIFIER '(' ')' '{' programme '}'\n     programme : statement ';' programme\n    | structure programme\n    | statement ';' \n    | statement statement : assignation\n        | structure  statement : PRINT expression  structure : WHILE expression '{' programme '}'  structure : IF expression '{' programme '}' expression : STRING '+' STRINGexpression : expression ADD_OP expression\n    | expression MUL_OP expressionexpression : expression COMP_OP expressionexpression : NUMBER\n        | IDENTIFIER expression : BOOLEAN expression : STRING expression : '(' expression ')'  expression : ADD_OP expression %prec UMINUS assignation : IDENTIFIER '=' expression "
     
-_lr_action_items = {'PRINT':([0,3,9,28,29,38,39,],[5,5,5,5,5,-8,-9,]),'WHILE':([0,3,9,28,29,38,39,],[6,6,6,6,6,-8,-9,]),'IF':([0,3,9,28,29,38,39,],[7,7,7,7,7,-8,-9,]),'IDENTIFIER':([0,3,5,6,7,9,13,17,20,22,23,24,28,29,38,39,],[8,8,15,15,15,8,15,15,15,15,15,15,8,8,-8,-9,]),'$end':([1,2,3,4,9,10,11,12,14,15,16,21,26,30,31,32,33,34,35,38,39,],[0,-4,-6,-5,-3,-2,-7,-17,-14,-15,-16,-1,-19,-20,-11,-12,-13,-10,-18,-8,-9,]),';':([2,3,4,11,12,14,15,16,26,30,31,32,33,34,35,38,39,],[9,-6,-5,-7,-17,-14,-15,-16,-19,-20,-11,-12,-13,-10,-18,-8,-9,]),'}':([2,3,4,9,10,11,12,14,15,16,21,26,30,31,32,33,34,35,36,37,38,39,],[-4,-6,-5,-3,-2,-7,-17,-14,-15,-16,-1,-19,-20,-11,-12,-13,-10,-18,38,39,-8,-9,]),'STRING':([5,6,7,13,17,20,22,23,24,25,],[12,12,12,12,12,12,12,12,12,34,]),'NUMBER':([5,6,7,13,17,20,22,23,24,],[14,14,14,14,14,14,14,14,14,]),'BOOLEAN':([5,6,7,13,17,20,22,23,24,],[16,16,16,16,16,16,16,16,16,]),'(':([5,6,7,13,17,20,22,23,24,],[17,17,17,17,17,17,17,17,17,]),'ADD_OP':([5,6,7,11,12,13,14,15,16,17,18,19,20,22,23,24,26,27,30,31,32,33,34,35,],[13,13,13,22,-17,13,-14,-15,-16,13,22,22,13,13,13,13,-19,22,22,-11,-12,22,-10,-18,]),'=':([8,],[20,]),'MUL_OP':([11,12,14,15,16,18,19,26,27,30,31,32,33,34,35,],[23,-17,-14,-15,-16,23,23,-19,23,23,23,-12,23,-10,-18,]),'COMP_OP':([11,12,14,15,16,18,19,26,27,30,31,32,33,34,35,],[24,-17,-14,-15,-16,24,24,-19,24,24,-11,-12,24,-10,-18,]),'+':([12,],[25,]),'{':([12,14,15,16,18,19,26,31,32,33,34,35,],[-17,-14,-15,-16,28,29,-19,-11,-12,-13,-10,-18,]),')':([12,14,15,16,26,27,31,32,33,34,35,],[-17,-14,-15,-16,-19,35,-11,-12,-13,-10,-18,]),}
+_lr_action_items = {'FUN':([0,2,18,],[3,3,-3,]),'$end':([1,2,4,18,],[0,-2,-1,-3,]),'IDENTIFIER':([3,8,12,14,15,16,17,19,23,27,32,33,34,38,39,47,48,],[5,9,9,25,25,25,25,9,25,25,25,25,25,9,9,-11,-12,]),'(':([5,14,15,16,17,23,27,32,33,34,],[6,27,27,27,27,27,27,27,27,27,]),')':([6,22,24,25,26,36,37,40,41,42,43,44,],[7,-20,-17,-18,-19,-22,44,-14,-15,-16,-13,-21,]),'{':([7,22,24,25,26,28,29,36,40,41,42,43,44,],[8,-20,-17,-18,-19,38,39,-22,-14,-15,-16,-13,-21,]),'PRINT':([8,12,19,38,39,47,48,],[14,14,14,14,14,-11,-12,]),'WHILE':([8,12,19,38,39,47,48,],[15,15,15,15,15,-11,-12,]),'IF':([8,12,19,38,39,47,48,],[16,16,16,16,16,-11,-12,]),'=':([9,],[17,]),'}':([10,11,12,13,19,20,21,22,24,25,26,30,31,36,40,41,42,43,44,45,46,47,48,],[18,-7,-9,-8,-6,-5,-10,-20,-17,-18,-19,-23,-4,-22,-14,-15,-16,-13,-21,47,48,-11,-12,]),';':([11,12,13,21,22,24,25,26,30,36,40,41,42,43,44,47,48,],[19,-9,-8,-10,-20,-17,-18,-19,-23,-22,-14,-15,-16,-13,-21,-11,-12,]),'STRING':([14,15,16,17,23,27,32,33,34,35,],[22,22,22,22,22,22,22,22,22,43,]),'NUMBER':([14,15,16,17,23,27,32,33,34,],[24,24,24,24,24,24,24,24,24,]),'BOOLEAN':([14,15,16,17,23,27,32,33,34,],[26,26,26,26,26,26,26,26,26,]),'ADD_OP':([14,15,16,17,21,22,23,24,25,26,27,28,29,30,32,33,34,36,37,40,41,42,43,44,],[23,23,23,23,32,-20,23,-17,-18,-19,23,32,32,32,23,23,23,-22,32,-14,-15,32,-13,-21,]),'MUL_OP':([21,22,24,25,26,28,29,30,36,37,40,41,42,43,44,],[33,-20,-17,-18,-19,33,33,33,-22,33,33,-15,33,-13,-21,]),'COMP_OP':([21,22,24,25,26,28,29,30,36,37,40,41,42,43,44,],[34,-20,-17,-18,-19,34,34,34,-22,34,-14,-15,34,-13,-21,]),'+':([22,],[35,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'programme':([0,3,9,28,29,],[1,10,21,36,37,]),'statement':([0,3,9,28,29,],[2,2,2,2,2,]),'structure':([0,3,9,28,29,],[3,3,3,3,3,]),'assignation':([0,3,9,28,29,],[4,4,4,4,4,]),'expression':([5,6,7,13,17,20,22,23,24,],[11,18,19,26,27,30,31,32,33,]),}
+_lr_goto_items = {'newprogram':([0,2,],[1,4,]),'func':([0,2,],[2,2,]),'programme':([8,12,19,38,39,],[10,20,31,45,46,]),'statement':([8,12,19,38,39,],[11,11,11,11,11,]),'structure':([8,12,19,38,39,],[12,12,12,12,12,]),'assignation':([8,12,19,38,39,],[13,13,13,13,13,]),'expression':([14,15,16,17,23,27,32,33,34,],[21,28,29,30,36,37,40,41,42,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,25 +26,28 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> programme","S'",1,None,None,None),
-  ('programme -> statement ; programme','programme',3,'p_programme_recursive','parser5.py',7),
-  ('programme -> structure programme','programme',2,'p_programme_recursive','parser5.py',8),
-  ('programme -> statement ;','programme',2,'p_programme_recursive','parser5.py',9),
-  ('programme -> statement','programme',1,'p_programme_recursive','parser5.py',10),
-  ('statement -> assignation','statement',1,'p_statement','parser5.py',20),
-  ('statement -> structure','statement',1,'p_statement','parser5.py',21),
-  ('statement -> PRINT expression','statement',2,'p_statement_print','parser5.py',25),
-  ('structure -> WHILE expression { programme }','structure',5,'p_structure_while','parser5.py',29),
-  ('structure -> IF expression { programme }','structure',5,'p_structure_if','parser5.py',33),
-  ('expression -> STRING + STRING','expression',3,'p_expression_add_strings','parser5.py',37),
-  ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parser5.py',42),
-  ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parser5.py',43),
-  ('expression -> expression COMP_OP expression','expression',3,'p_expression_comp','parser5.py',47),
-  ('expression -> NUMBER','expression',1,'p_expression_num_or_var','parser5.py',51),
-  ('expression -> IDENTIFIER','expression',1,'p_expression_num_or_var','parser5.py',52),
-  ('expression -> BOOLEAN','expression',1,'p_expression_boolean','parser5.py',56),
-  ('expression -> STRING','expression',1,'p_expression_string','parser5.py',60),
-  ('expression -> ( expression )','expression',3,'p_expression_paren','parser5.py',64),
-  ('expression -> ADD_OP expression','expression',2,'p_minus','parser5.py',68),
-  ('assignation -> IDENTIFIER = expression','assignation',3,'p_assignation','parser5.py',72),
+  ("S' -> newprogram","S'",1,None,None,None),
+  ('newprogram -> func newprogram','newprogram',2,'p_newprogram_recursive','parser5.py',7),
+  ('newprogram -> func','newprogram',1,'p_newprogram_recursive','parser5.py',8),
+  ('func -> FUN IDENTIFIER ( ) { programme }','func',7,'p_func','parser5.py',16),
+  ('programme -> statement ; programme','programme',3,'p_programme_recursive','parser5.py',29),
+  ('programme -> structure programme','programme',2,'p_programme_recursive','parser5.py',30),
+  ('programme -> statement ;','programme',2,'p_programme_recursive','parser5.py',31),
+  ('programme -> statement','programme',1,'p_programme_recursive','parser5.py',32),
+  ('statement -> assignation','statement',1,'p_statement','parser5.py',42),
+  ('statement -> structure','statement',1,'p_statement','parser5.py',43),
+  ('statement -> PRINT expression','statement',2,'p_statement_print','parser5.py',47),
+  ('structure -> WHILE expression { programme }','structure',5,'p_structure_while','parser5.py',51),
+  ('structure -> IF expression { programme }','structure',5,'p_structure_if','parser5.py',55),
+  ('expression -> STRING + STRING','expression',3,'p_expression_add_strings','parser5.py',59),
+  ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parser5.py',64),
+  ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parser5.py',65),
+  ('expression -> expression COMP_OP expression','expression',3,'p_expression_comp','parser5.py',69),
+  ('expression -> NUMBER','expression',1,'p_expression_num_or_var','parser5.py',73),
+  ('expression -> IDENTIFIER','expression',1,'p_expression_num_or_var','parser5.py',74),
+  ('expression -> BOOLEAN','expression',1,'p_expression_boolean','parser5.py',78),
+  ('expression -> STRING','expression',1,'p_expression_string','parser5.py',82),
+  ('expression -> ( expression )','expression',3,'p_expression_paren','parser5.py',86),
+  ('expression -> ADD_OP expression','expression',2,'p_minus','parser5.py',90),
+  ('assignation -> IDENTIFIER = expression','assignation',3,'p_assignation','parser5.py',94),
 ]

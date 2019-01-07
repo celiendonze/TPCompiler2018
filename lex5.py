@@ -4,6 +4,7 @@ reserved_words = (
 	'while',
 	'print',
 	'if',
+	'fun'
 )
 
 tokens = (

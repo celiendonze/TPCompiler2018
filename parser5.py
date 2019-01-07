@@ -3,6 +3,28 @@ import ply.yacc as yacc
 from lex5 import tokens
 import AST
 
+def p_newprogram_recursive(p):
+    '''newprogram : func newprogram
+    | func
+    '''
+    try:
+        p[0] = p[1] + p[2]
+    except:
+        p[0] = p[1]
+
+def p_func(p):
+    '''func : FUN IDENTIFIER '(' ')' '{' programme '}'
+    '''
+    
+    p[0] = AST.FunNode(p[2], AST.ProgramNode(p[6]))
+    print(p[0].body)
+    
+
+# def p_returninstr(p):
+#     '''returninstr : RETURN expression'''
+
+
+
 def p_programme_recursive(p):
     ''' programme : statement ';' programme
     | structure programme

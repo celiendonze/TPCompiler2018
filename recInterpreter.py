@@ -19,6 +19,8 @@ compOperations = {
 
 vars = {}
 
+
+
 @addToClass(AST.ProgramNode)
 def execute(self):
     for c in self.children:
@@ -32,6 +34,7 @@ def execute(self):
         except KeyError:
             print("*** Error : variable %s undefined!" % self.tok)
     return self.tok
+
 
 @addToClass(AST.OpNode)
 def execute(self):
@@ -50,6 +53,10 @@ def execute(self):
             print(f"*** Error : Invalid comparison between operands {args[0]} and {args[1]}")
     else:
         return False
+
+@addToClass(AST.FunNode)
+def execute(self):
+    return self.body.execute()
 
 @addToClass(AST.StringNode)
 def execute(self):

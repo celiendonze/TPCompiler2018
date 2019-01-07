@@ -1,7 +1,5 @@
-fun sayHello(){
-    print("Hello");
-}
-
-fun main(){
-    sayHello();
+fun sayHello() {
+    print(100);
+    
+    print(10000);
 }

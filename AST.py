@@ -94,6 +94,15 @@ class Node:
         
 class ProgramNode(Node):
     type = 'Program'
+
+funs = {}
+class FunNode(Node):
+    type = 'Func'
+    def __init__(self, name, body):
+        Node.__init__(self)
+        self.body = body
+        self.name = name
+        funs[name] = body
         
 class TokenNode(Node):
     type = 'token'
