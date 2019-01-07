@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "leftADD_OPleftMUL_OPleftCOMP_OPrightUMINUSADD_OP BOOLEAN COMP_OP FUN GLOBAL IDENTIFIER IF MUL_OP NUMBER PRINT STRING WHILE programme : statement ';' programme\n    | structure programme\n    | statement ';' \n    | structure statement : assignation\n    | funcCallstructure : funcDec funcDec : FUN IDENTIFIER '(' ')' '{' programme '}'\n    funcCall : IDENTIFIER '(' ')'  statement : PRINT expression  structure : WHILE expression '{' programme '}'  structure : IF expression '{' programme '}' expression : STRING '+' STRINGexpression : expression ADD_OP expression\n    | expression MUL_OP expressionexpression : expression COMP_OP expressionexpression : NUMBER\n    | IDENTIFIER expression : BOOLEAN expression : STRING expression : '(' expression ')'  expression : ADD_OP expression %prec UMINUS assignation : IDENTIFIER '=' expression\n    | GLOBAL IDENTIFIER '=' expression  "
+_lr_signature = "leftADD_OPleftMUL_OPleftCOMP_OPrightUMINUSADD_OP BOOLEAN COMP_OP FUN GLOBAL IDENTIFIER IF MUL_OP NUMBER PRINT RETURN STRING WHILE programme : statement ';' programme\n    | structure programme\n    | statement ';' \n    | structure statement : assignation\n    | funcCall\n    params : IDENTIFIER ',' params\n    | IDENTIFIER\n    | structure : funcDec funcDec : FUN IDENTIFIER '(' params ')' '{' programme RETURN '}'\n    paramsCall : expression ',' paramsCall\n    | expression\n    |  funcCall : IDENTIFIER '(' paramsCall ')'  statement : PRINT expression  structure : WHILE expression '{' programme '}'  structure : IF expression '{' programme '}' expression : STRING '+' STRINGexpression : expression ADD_OP expression\n    | expression MUL_OP expressionexpression : expression COMP_OP expressionexpression : NUMBER\n    | IDENTIFIER expression : BOOLEAN expression : STRING expression : '(' expression ')'  expression : ADD_OP expression %prec UMINUS assignation : IDENTIFIER '=' expression\n    | GLOBAL IDENTIFIER '=' expression  "
     
-_lr_action_items = {'PRINT':([0,3,7,13,35,36,50,51,52,54,],[6,6,-7,6,6,6,-11,-12,6,-8,]),'WHILE':([0,3,7,13,35,36,50,51,52,54,],[8,8,-7,8,8,8,-11,-12,8,-8,]),'IF':([0,3,7,13,35,36,50,51,52,54,],[9,9,-7,9,9,9,-11,-12,9,-8,]),'IDENTIFIER':([0,3,6,7,8,9,11,12,13,17,21,24,29,30,31,35,36,39,50,51,52,54,],[10,10,19,-7,19,19,26,27,10,19,19,19,19,19,19,10,10,19,-11,-12,10,-8,]),'GLOBAL':([0,3,7,13,35,36,50,51,52,54,],[11,11,-7,11,11,11,-11,-12,11,-8,]),'FUN':([0,3,7,13,35,36,50,51,52,54,],[12,12,-7,12,12,12,-11,-12,12,-8,]),'$end':([1,3,7,13,14,28,50,51,54,],[0,-4,-7,-3,-2,-1,-11,-12,-8,]),';':([2,4,5,15,16,18,19,20,33,37,38,41,42,43,44,45,48,],[13,-5,-6,-10,-20,-17,-18,-19,-22,-23,-9,-14,-15,-16,-13,-21,-24,]),'}':([3,7,13,14,28,46,47,50,51,53,54,],[-4,-7,-3,-2,-1,50,51,-11,-12,54,-8,]),'STRING':([6,8,9,17,21,24,29,30,31,32,39,],[16,16,16,16,16,16,16,16,16,44,16,]),'NUMBER':([6,8,9,17,21,24,29,30,31,39,],[18,18,18,18,18,18,18,18,18,18,]),'BOOLEAN':([6,8,9,17,21,24,29,30,31,39,],[20,20,20,20,20,20,20,20,20,20,]),'(':([6,8,9,10,17,21,24,27,29,30,31,39,],[21,21,21,25,21,21,21,40,21,21,21,21,]),'ADD_OP':([6,8,9,15,16,17,18,19,20,21,22,23,24,29,30,31,33,34,37,39,41,42,43,44,45,48,],[17,17,17,29,-20,17,-17,-18,-19,17,29,29,17,17,17,17,-22,29,29,17,-14,-15,-16,-13,-21,29,]),'=':([10,26,],[24,39,]),'MUL_OP':([15,16,18,19,20,22,23,33,34,37,41,42,43,44,45,48,],[30,-20,-17,-18,-19,30,30,-22,30,30,30,-15,-16,-13,-21,30,]),'COMP_OP':([15,16,18,19,20,22,23,33,34,37,41,42,43,44,45,48,],[31,-20,-17,-18,-19,31,31,-22,31,31,31,31,-16,-13,-21,31,]),'+':([16,],[32,]),'{':([16,18,19,20,22,23,33,41,42,43,44,45,49,],[-20,-17,-18,-19,35,36,-22,-14,-15,-16,-13,-21,52,]),')':([16,18,19,20,25,33,34,40,41,42,43,44,45,],[-20,-17,-18,-19,38,-22,45,49,-14,-15,-16,-13,-21,]),}
+_lr_action_items = {'PRINT':([0,3,7,13,35,36,54,55,60,63,],[6,6,-10,6,6,6,-17,-18,6,-11,]),'WHILE':([0,3,7,13,35,36,54,55,60,63,],[8,8,-10,8,8,8,-17,-18,8,-11,]),'IF':([0,3,7,13,35,36,54,55,60,63,],[9,9,-10,9,9,9,-17,-18,9,-11,]),'IDENTIFIER':([0,3,6,7,8,9,11,12,13,17,21,24,25,29,30,31,35,36,40,41,50,54,55,57,60,63,],[10,10,19,-10,19,19,26,27,10,19,19,19,19,19,19,19,10,10,19,52,19,-17,-18,52,10,-11,]),'GLOBAL':([0,3,7,13,35,36,54,55,60,63,],[11,11,-10,11,11,11,-17,-18,11,-11,]),'FUN':([0,3,7,13,35,36,54,55,60,63,],[12,12,-10,12,12,12,-17,-18,12,-11,]),'$end':([1,3,7,13,14,28,54,55,63,],[0,-4,-10,-3,-2,-1,-17,-18,-11,]),';':([2,4,5,15,16,18,19,20,33,37,42,43,44,45,46,49,51,],[13,-5,-6,-16,-26,-23,-24,-25,-28,-29,-20,-21,-22,-19,-27,-15,-30,]),'}':([3,7,13,14,28,47,48,54,55,62,63,],[-4,-10,-3,-2,-1,54,55,-17,-18,63,-11,]),'RETURN':([3,7,13,14,28,54,55,61,63,],[-4,-10,-3,-2,-1,-17,-18,62,-11,]),'STRING':([6,8,9,17,21,24,25,29,30,31,32,40,50,],[16,16,16,16,16,16,16,16,16,16,45,16,16,]),'NUMBER':([6,8,9,17,21,24,25,29,30,31,40,50,],[18,18,18,18,18,18,18,18,18,18,18,18,]),'BOOLEAN':([6,8,9,17,21,24,25,29,30,31,40,50,],[20,20,20,20,20,20,20,20,20,20,20,20,]),'(':([6,8,9,10,17,21,24,25,27,29,30,31,40,50,],[21,21,21,25,21,21,21,21,41,21,21,21,21,21,]),'ADD_OP':([6,8,9,15,16,17,18,19,20,21,22,23,24,25,29,30,31,33,34,37,39,40,42,43,44,45,46,50,51,],[17,17,17,29,-26,17,-23,-24,-25,17,29,29,17,17,17,17,17,-28,29,29,29,17,-20,-21,-22,-19,-27,17,29,]),'=':([10,26,],[24,40,]),'MUL_OP':([15,16,18,19,20,22,23,33,34,37,39,42,43,44,45,46,51,],[30,-26,-23,-24,-25,30,30,-28,30,30,30,30,-21,-22,-19,-27,30,]),'COMP_OP':([15,16,18,19,20,22,23,33,34,37,39,42,43,44,45,46,51,],[31,-26,-23,-24,-25,31,31,-28,31,31,31,31,31,-22,-19,-27,31,]),'+':([16,],[32,]),'{':([16,18,19,20,22,23,33,42,43,44,45,46,58,],[-26,-23,-24,-25,35,36,-28,-20,-21,-22,-19,-27,60,]),')':([16,18,19,20,25,33,34,38,39,41,42,43,44,45,46,50,52,53,56,57,59,],[-26,-23,-24,-25,-14,-28,46,49,-13,-9,-20,-21,-22,-19,-27,-14,-8,58,-12,-9,-7,]),',':([16,18,19,20,33,39,42,43,44,45,46,52,],[-26,-23,-24,-25,-28,50,-20,-21,-22,-19,-27,57,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'programme':([0,3,13,35,36,52,],[1,14,28,46,47,53,]),'statement':([0,3,13,35,36,52,],[2,2,2,2,2,2,]),'structure':([0,3,13,35,36,52,],[3,3,3,3,3,3,]),'assignation':([0,3,13,35,36,52,],[4,4,4,4,4,4,]),'funcCall':([0,3,13,35,36,52,],[5,5,5,5,5,5,]),'funcDec':([0,3,13,35,36,52,],[7,7,7,7,7,7,]),'expression':([6,8,9,17,21,24,29,30,31,39,],[15,22,23,33,34,37,41,42,43,48,]),}
+_lr_goto_items = {'programme':([0,3,13,35,36,60,],[1,14,28,47,48,61,]),'statement':([0,3,13,35,36,60,],[2,2,2,2,2,2,]),'structure':([0,3,13,35,36,60,],[3,3,3,3,3,3,]),'assignation':([0,3,13,35,36,60,],[4,4,4,4,4,4,]),'funcCall':([0,3,13,35,36,60,],[5,5,5,5,5,5,]),'funcDec':([0,3,13,35,36,60,],[7,7,7,7,7,7,]),'expression':([6,8,9,17,21,24,25,29,30,31,40,50,],[15,22,23,33,34,37,39,42,43,44,51,39,]),'paramsCall':([25,50,],[38,56,]),'params':([41,57,],[53,59,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -33,22 +33,28 @@ _lr_productions = [
   ('programme -> structure','programme',1,'p_programme_recursive','parser5.py',27),
   ('statement -> assignation','statement',1,'p_statement','parser5.py',37),
   ('statement -> funcCall','statement',1,'p_statement','parser5.py',38),
-  ('structure -> funcDec','structure',1,'p_structure','parser5.py',42),
-  ('funcDec -> FUN IDENTIFIER ( ) { programme }','funcDec',7,'p_funcDec','parser5.py',46),
-  ('funcCall -> IDENTIFIER ( )','funcCall',3,'p_funcCall','parser5.py',52),
-  ('statement -> PRINT expression','statement',2,'p_statement_print','parser5.py',56),
-  ('structure -> WHILE expression { programme }','structure',5,'p_structure_while','parser5.py',60),
-  ('structure -> IF expression { programme }','structure',5,'p_structure_if','parser5.py',64),
-  ('expression -> STRING + STRING','expression',3,'p_expression_add_strings','parser5.py',68),
-  ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parser5.py',73),
-  ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parser5.py',74),
-  ('expression -> expression COMP_OP expression','expression',3,'p_expression_comp','parser5.py',78),
-  ('expression -> NUMBER','expression',1,'p_expression_num_or_var','parser5.py',82),
-  ('expression -> IDENTIFIER','expression',1,'p_expression_num_or_var','parser5.py',83),
-  ('expression -> BOOLEAN','expression',1,'p_expression_boolean','parser5.py',87),
-  ('expression -> STRING','expression',1,'p_expression_string','parser5.py',91),
-  ('expression -> ( expression )','expression',3,'p_expression_paren','parser5.py',95),
-  ('expression -> ADD_OP expression','expression',2,'p_minus','parser5.py',99),
-  ('assignation -> IDENTIFIER = expression','assignation',3,'p_assignation','parser5.py',103),
-  ('assignation -> GLOBAL IDENTIFIER = expression','assignation',4,'p_assignation','parser5.py',104),
+  ('params -> IDENTIFIER , params','params',3,'p_params','parser5.py',43),
+  ('params -> IDENTIFIER','params',1,'p_params','parser5.py',44),
+  ('params -> <empty>','params',0,'p_params','parser5.py',45),
+  ('structure -> funcDec','structure',1,'p_structure','parser5.py',56),
+  ('funcDec -> FUN IDENTIFIER ( params ) { programme RETURN }','funcDec',9,'p_funcDec','parser5.py',60),
+  ('paramsCall -> expression , paramsCall','paramsCall',3,'p_paramsCall','parser5.py',66),
+  ('paramsCall -> expression','paramsCall',1,'p_paramsCall','parser5.py',67),
+  ('paramsCall -> <empty>','paramsCall',0,'p_paramsCall','parser5.py',68),
+  ('funcCall -> IDENTIFIER ( paramsCall )','funcCall',4,'p_funcCall','parser5.py',80),
+  ('statement -> PRINT expression','statement',2,'p_statement_print','parser5.py',85),
+  ('structure -> WHILE expression { programme }','structure',5,'p_structure_while','parser5.py',89),
+  ('structure -> IF expression { programme }','structure',5,'p_structure_if','parser5.py',93),
+  ('expression -> STRING + STRING','expression',3,'p_expression_add_strings','parser5.py',97),
+  ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parser5.py',102),
+  ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parser5.py',103),
+  ('expression -> expression COMP_OP expression','expression',3,'p_expression_comp','parser5.py',107),
+  ('expression -> NUMBER','expression',1,'p_expression_num_or_var','parser5.py',111),
+  ('expression -> IDENTIFIER','expression',1,'p_expression_num_or_var','parser5.py',112),
+  ('expression -> BOOLEAN','expression',1,'p_expression_boolean','parser5.py',116),
+  ('expression -> STRING','expression',1,'p_expression_string','parser5.py',120),
+  ('expression -> ( expression )','expression',3,'p_expression_paren','parser5.py',124),
+  ('expression -> ADD_OP expression','expression',2,'p_minus','parser5.py',128),
+  ('assignation -> IDENTIFIER = expression','assignation',3,'p_assignation','parser5.py',132),
+  ('assignation -> GLOBAL IDENTIFIER = expression','assignation',4,'p_assignation','parser5.py',133),
 ]

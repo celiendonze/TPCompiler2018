@@ -3,22 +3,6 @@ import ply.yacc as yacc
 from lex5 import tokens
 import AST
 
-# def p_newprogram_recursive(p):
-#     '''newprogram : func newprogram
-#     | func
-#     '''
-#     try:
-#         p[0] = p[1] + p[2]
-#     except:
-#         p[0] = p[1]
-
-
-
-
-# def p_returninstr(p):
-#     '''returninstr : RETURN expression'''
-
-
 
 def p_programme_recursive(p):
     ''' programme : statement ';' programme
@@ -35,22 +19,53 @@ def p_programme_recursive(p):
       
 def p_statement(p):
     ''' statement : assignation
-    | funcCall'''
+    | funcCall
+    '''
     p[0] = p[1] 
+
+#This rule is for the declaration of functions. We need only IDENTIFIERs. We can also create a function without parameters
+def p_params(p):
+    '''params : IDENTIFIER ',' params
+    | IDENTIFIER
+    | '''
+    
+    try:
+        p[0] = [p[1]] + p[3]
+    except:
+        try:
+            p[0] = [p[1]]
+        except:
+            p[0] = []
 
 def p_structure(p):
     '''structure : funcDec '''
     p[0] = p[1]
 
+#This rule is the declaration of the functions
 def p_funcDec(p):
-    '''funcDec : FUN IDENTIFIER '(' ')' '{' programme '}'
+    '''funcDec : FUN IDENTIFIER '(' params ')' '{' programme RETURN '}'
     '''
-    p[0] = AST.FunNode(p[2], p[6])
-    #print(p[0].body)
+    p[0] = AST.FunNode(p[2], p[7], p[4])
     
+#This is the rule for the parameters of the function call. We can call a function with a operation, a variable, a number
+def p_paramsCall(p):
+    '''paramsCall : expression ',' paramsCall
+    | expression
+    |  '''
+    
+    try:
+        p[0] = [p[1]] + p[3]
+    except:
+        try:
+            p[0] = [p[1]]
+        except:
+            p[0] = []
+
+
+#This is the rule for the call of a function    
 def p_funcCall(p):
-    '''funcCall : IDENTIFIER '(' ')' '''
-    p[0] = AST.FunCallNode(p[1])
+    '''funcCall : IDENTIFIER '(' paramsCall ')' '''
+    p[0] = AST.FunCallNode(p[1], p[3])
 
 def p_statement_print(p):
     ''' statement : PRINT expression '''
