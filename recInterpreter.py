@@ -2,6 +2,7 @@ import AST
 from AST import addToClass
 from functools import reduce
 
+# operateurs mathematiques
 operations = {
     '+': lambda x, y : x + y,
     '-': lambda x, y : x - y,
@@ -9,6 +10,7 @@ operations = {
     '/': lambda x, y : x / y,
 }
 
+# operateurs de comparaison
 compOperations = {
     '<': lambda x, y : x < y,
     '>': lambda x, y : x > y,
@@ -18,7 +20,8 @@ compOperations = {
 }
 
 vars = {}
-
+globalVars = {}
+funs = {}
 
 
 @addToClass(AST.ProgramNode)
@@ -30,7 +33,11 @@ def execute(self):
 def execute(self):
     if isinstance(self.tok, str):
         try:
-            return vars[self.tok]
+            # we check if it exists in the local variables, if not we also check the globals and otherwise it's undefined
+            try:
+                return vars[self.tok]
+            except:
+                return globalVars[self.tok]
         except KeyError:
             print("*** Error : variable %s undefined!" % self.tok)
     return self.tok
@@ -41,7 +48,10 @@ def execute(self):
     args = [c.execute() for c in self.children]
     if len(args) == 1:
         args.insert(0, 0)
-    return reduce(operations[self.op], args)
+    try:
+        return reduce(operations[self.op], args)
+    except:
+        print(f"*** Error : invalid operation between operands {args[0]} and {args[1]}")
 
 @addToClass(AST.CompOpNode)
 def execute(self):
@@ -56,7 +66,11 @@ def execute(self):
 
 @addToClass(AST.FunNode)
 def execute(self):
-    return self.body.execute()
+    funs[self.name] = self.body
+
+@addToClass(AST.FunCallNode)
+def execute(self):
+    return funs[self.name].execute()
 
 @addToClass(AST.StringNode)
 def execute(self):
@@ -68,7 +82,10 @@ def execute(self):
 
 @addToClass(AST.AssignNode)
 def execute(self):
-    vars[self.children[0].tok] = self.children[1].execute()
+    if(not self.isGlobal):
+        vars[self.children[0].tok] = self.children[1].execute()
+    else:
+        globalVars[self.children[0].tok] = self.children[1].execute()
 
 @addToClass(AST.PrintNode)
 def execute(self):

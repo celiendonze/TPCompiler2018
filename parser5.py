@@ -3,22 +3,17 @@ import ply.yacc as yacc
 from lex5 import tokens
 import AST
 
-def p_newprogram_recursive(p):
-    '''newprogram : func newprogram
-    | func
-    '''
-    try:
-        p[0] = p[1] + p[2]
-    except:
-        p[0] = p[1]
+# def p_newprogram_recursive(p):
+#     '''newprogram : func newprogram
+#     | func
+#     '''
+#     try:
+#         p[0] = p[1] + p[2]
+#     except:
+#         p[0] = p[1]
 
-def p_func(p):
-    '''func : FUN IDENTIFIER '(' ')' '{' programme '}'
-    '''
-    
-    p[0] = AST.FunNode(p[2], AST.ProgramNode(p[6]))
-    print(p[0].body)
-    
+
+
 
 # def p_returninstr(p):
 #     '''returninstr : RETURN expression'''
@@ -29,7 +24,7 @@ def p_programme_recursive(p):
     ''' programme : statement ';' programme
     | structure programme
     | statement ';' 
-    | statement'''
+    | structure'''
     try:
         p[0] = AST.ProgramNode([p[1]]+p[3].children)
     except:
@@ -37,11 +32,25 @@ def p_programme_recursive(p):
             p[0] = AST.ProgramNode([p[1]]+p[2].children)
         except:
             p[0] = AST.ProgramNode([p[1]])
-        
+      
 def p_statement(p):
     ''' statement : assignation
-        | structure '''
+    | funcCall'''
+    p[0] = p[1] 
+
+def p_structure(p):
+    '''structure : funcDec '''
     p[0] = p[1]
+
+def p_funcDec(p):
+    '''funcDec : FUN IDENTIFIER '(' ')' '{' programme '}'
+    '''
+    p[0] = AST.FunNode(p[2], p[6])
+    #print(p[0].body)
+    
+def p_funcCall(p):
+    '''funcCall : IDENTIFIER '(' ')' '''
+    p[0] = AST.FunCallNode(p[1])
 
 def p_statement_print(p):
     ''' statement : PRINT expression '''
@@ -71,7 +80,7 @@ def p_expression_comp(p):
 
 def p_expression_num_or_var(p):
     '''expression : NUMBER
-        | IDENTIFIER '''
+    | IDENTIFIER '''
     p[0] = AST.TokenNode(p[1])
 
 def p_expression_boolean(p):
@@ -91,8 +100,13 @@ def p_minus(p):
     p[0] = AST.OpNode(p[1], [p[2]])
     	
 def p_assignation(p):
-    ''' assignation : IDENTIFIER '=' expression '''
-    p[0] = AST.AssignNode([AST.TokenNode(p[1]),p[3]])
+    ''' assignation : IDENTIFIER '=' expression
+    | GLOBAL IDENTIFIER '=' expression  '''
+    # if it's the second part of the rule it means we have 4 lexemes and it's a global var and we set True to the isGlobal parameter
+    try:
+        p[0] = AST.AssignNode([AST.TokenNode(p[2]),p[4], True])
+    except:
+        p[0] = AST.AssignNode([AST.TokenNode(p[1]),p[3]])
 
 def p_error(p):
     if p:
@@ -105,6 +119,7 @@ def p_error(p):
 precedence = (
     ('left', 'ADD_OP'),
     ('left', 'MUL_OP'),
+    ('left', 'COMP_OP'),
     ('right', 'UMINUS'),  
 )
 
@@ -114,7 +129,7 @@ def parse(program):
 yacc.yacc(outputdir='generated')
 
 if __name__ == "__main__":
-    import sys 
+    import sys
     	
     try:
         with open(sys.argv[1]) as f:

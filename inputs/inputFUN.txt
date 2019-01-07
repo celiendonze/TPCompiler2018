@@ -1,5 +1,12 @@
 fun sayHello() {
     print(100);
-    
+}
+
+fun s() {
     print(10000);
 }
+
+s();
+s();
+sayHello();
+a();
