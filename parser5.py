@@ -7,7 +7,7 @@ def p_programme_recursive(p):
     ''' programme : statement ';' programme
     | structure programme
     | statement ';' 
-    | statement'''
+    | structure'''
     try:
         p[0] = AST.ProgramNode([p[1]]+p[3].children)
     except:
@@ -17,8 +17,7 @@ def p_programme_recursive(p):
             p[0] = AST.ProgramNode([p[1]])
         
 def p_statement(p):
-    ''' statement : assignation
-        | structure '''
+    ''' statement : assignation'''
     p[0] = p[1]
 
 def p_statement_print(p):
@@ -49,7 +48,7 @@ def p_expression_comp(p):
 
 def p_expression_num_or_var(p):
     '''expression : NUMBER
-        | IDENTIFIER '''
+    | IDENTIFIER '''
     p[0] = AST.TokenNode(p[1])
 
 def p_expression_boolean(p):
@@ -83,6 +82,7 @@ def p_error(p):
 precedence = (
     ('left', 'ADD_OP'),
     ('left', 'MUL_OP'),
+    ('left', 'COMP_OP'),
     ('right', 'UMINUS'),  
 )
 
@@ -92,7 +92,7 @@ def parse(program):
 yacc.yacc(outputdir='generated')
 
 if __name__ == "__main__":
-    import sys 
+    import sys
     	
     try:
         with open(sys.argv[1]) as f:

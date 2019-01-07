@@ -2,6 +2,7 @@ import AST
 from AST import addToClass
 from functools import reduce
 
+# operateurs mathematiques
 operations = {
     '+': lambda x, y : x + y,
     '-': lambda x, y : x - y,
@@ -9,6 +10,7 @@ operations = {
     '/': lambda x, y : x / y,
 }
 
+# operateurs de comparaison
 compOperations = {
     '<': lambda x, y : x < y,
     '>': lambda x, y : x > y,
@@ -38,7 +40,10 @@ def execute(self):
     args = [c.execute() for c in self.children]
     if len(args) == 1:
         args.insert(0, 0)
-    return reduce(operations[self.op], args)
+    try:
+        return reduce(operations[self.op], args)
+    except:
+        print(f"*** Error : invalid operation between operands {args[0]} and {args[1]}")
 
 @addToClass(AST.CompOpNode)
 def execute(self):

@@ -16,7 +16,7 @@ tokens = (
 	'COMP_OP',
 ) + tuple(map(lambda s:s.upper(),reserved_words))
 
-literals = '();={}+'
+literals = '();={}'
 
 def t_COMMENT(t):
 	r'/[*][^*]*[*]+([^/*][^*]*[*]+)*/|//[^\n]*'
