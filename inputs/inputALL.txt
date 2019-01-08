@@ -10,9 +10,11 @@
         -   Boolean assignation
         -   Boolean testing
         -   While with variables
+		-	Line comments
+		-	Multiline comment
 
     Add things to test !
-    E.g. operations, maybe test return value if done ?, global vs local variables
+    E.g. operations, maybe test return value if done ?, global vs local variables, inline comment (after some code)
 */
 
 
