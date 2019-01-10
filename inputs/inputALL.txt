@@ -71,7 +71,7 @@ UnexistingFunction();
 // Testing to access a global variable from a function
 print("--------------------------");
 global myGlobalVar = "This is a global variable !";
-myGlobalVar = "THis is a new global";
+myGlobalVar = "This is a local with the same name as a global";
 printGlobalVariable();
 
 

@@ -1,6 +1,7 @@
 import AST
 import copy
 from AST import addToClass
+import re
 from functools import reduce
 
 # operateurs mathematiques
@@ -87,12 +88,23 @@ def execute(self):
 
         #Add parameters at the start of the body
         for identifier, value in zip(funs[self.name][0], self.params):
-            # TODO : try except
-            paramVal = value
-            if value in vars[0]:
-                paramVal = vars[0][value]
 
-            paramsFuncBody.children.insert(0, AST.AssignNode([AST.TokenNode(identifier), paramVal]))
+            #paramValue = str(value)
+            paramValue = value
+            print("Val : ", str(paramValue))
+            
+            strValue = str(paramValue)
+            print(strValue in vars[0].keys())
+            """print("Param val : ", paramValue)
+            print(type(paramValue))
+            print("Keys : ", vars[0].keys())
+            print(paramValue in vars[0].keys())"""
+
+            if value in vars[0].keys():
+                paramValue = vars[0][value]
+
+            #print("Post check : ", paramValue)
+            paramsFuncBody.children.insert(0, AST.AssignNode([AST.TokenNode(identifier), paramValue]))
 
         #we add the memory to the top of the stack
         vars.insert(0, self.vars)
