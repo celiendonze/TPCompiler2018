@@ -87,7 +87,12 @@ def execute(self):
 
         #Add parameters at the start of the body
         for identifier, value in zip(funs[self.name][0], self.params):
-            paramsFuncBody.children.insert(0, AST.AssignNode([AST.TokenNode(identifier), value]))
+            # TODO : try except
+            paramVal = value
+            if value in vars[0]:
+                paramVal = vars[0][value]
+
+            paramsFuncBody.children.insert(0, AST.AssignNode([AST.TokenNode(identifier), paramVal]))
 
         #we add the memory to the top of the stack
         vars.insert(0, self.vars)

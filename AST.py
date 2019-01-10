@@ -110,6 +110,8 @@ class FunCallNode(Node):
         Node.__init__(self)
         self.name = name
         self.params = params
+        # loop through local vars and take the variable value instead of the raw value
+        
         self.vars = {}
 
 class ReturnNode(Node):
