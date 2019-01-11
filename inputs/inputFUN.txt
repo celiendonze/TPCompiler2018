@@ -1,7 +1,11 @@
-fun sayHello(){
-    print("Hello");
+fun s(er, sa, b)
+{
+    print(b);
+    print(er);
+    print(sa);
+    
+    return
 }
 
-fun main(){
-    sayHello();
-}
+a = "w" + 3; 
+s(1, "a", 3);

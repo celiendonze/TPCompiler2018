@@ -94,6 +94,29 @@ class Node:
         
 class ProgramNode(Node):
     type = 'Program'
+
+#This represent the declaration of a function. Under the function's name, we save the function's body and parameters for later uses
+class FunNode(Node):
+    type = 'Func'
+    def __init__(self, name, body, params):
+        Node.__init__(self)
+        self.body = body
+        self.name = name
+        self.params = params
+
+class FunCallNode(Node):
+    type = "callNode"
+    def __init__(self, name, params):
+        Node.__init__(self)
+        self.name = name
+        self.params = params
+        # loop through local vars and take the variable value instead of the raw value
+        
+        self.vars = {}
+
+class ReturnNode(Node):
+    type = "returnNode"
+    
         
 class TokenNode(Node):
     type = 'token'
@@ -141,6 +164,10 @@ class CompOpNode(Node):
 
 class AssignNode(Node):
     type = '='
+    def __init__(self, children, isGlobal=False):
+        Node.__init__(self, children)
+        self.isGlobal = isGlobal
+    
     
 class PrintNode(Node):
     type = 'print'

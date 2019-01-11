@@ -3,6 +3,7 @@ import ply.yacc as yacc
 from lex5 import tokens
 import AST
 
+
 def p_programme_recursive(p):
     ''' programme : statement ';' programme
     | structure programme
@@ -15,10 +16,56 @@ def p_programme_recursive(p):
             p[0] = AST.ProgramNode([p[1]]+p[2].children)
         except:
             p[0] = AST.ProgramNode([p[1]])
-        
+      
 def p_statement(p):
-    ''' statement : assignation'''
+    ''' statement : assignation
+    | funcCall
+    '''
+    p[0] = p[1] 
+
+#This rule is for the declaration of functions. We need only IDENTIFIERs. We can also create a function without parameters
+def p_params(p):
+    '''params : IDENTIFIER ',' params
+    | IDENTIFIER
+    | '''
+    
+    try:
+        p[0] = [p[1]] + p[3]
+    except:
+        try:
+            p[0] = [p[1]]
+        except:
+            p[0] = []
+
+def p_structure(p):
+    '''structure : funcDec '''
     p[0] = p[1]
+
+#This rule is the declaration of the functions
+def p_funcDec(p):
+    '''funcDec : FUN IDENTIFIER '(' params ')' '{' programme RETURN '}'
+    '''
+    p[0] = AST.FunNode(p[2], p[7], p[4])
+    
+#This is the rule for the parameters of the function call. We can call a function with an operation, a variable, a number, ...
+def p_paramsCall(p):
+    '''paramsCall : expression ',' paramsCall
+    | expression
+    |  '''
+    
+    try:
+        p[0] = [p[1]] + p[3]
+    except:
+        try:
+            p[0] = [p[1]]
+        except:
+            p[0] = []
+
+
+#This is the rule for the call of a function    
+def p_funcCall(p):
+    '''funcCall : IDENTIFIER '(' paramsCall ')' '''
+    p[0] = AST.FunCallNode(p[1], p[3])
 
 def p_statement_print(p):
     ''' statement : PRINT expression '''
@@ -68,8 +115,13 @@ def p_minus(p):
     p[0] = AST.OpNode(p[1], [p[2]])
     	
 def p_assignation(p):
-    ''' assignation : IDENTIFIER '=' expression '''
-    p[0] = AST.AssignNode([AST.TokenNode(p[1]),p[3]])
+    ''' assignation : IDENTIFIER '=' expression
+    | GLOBAL IDENTIFIER '=' expression  '''
+    # if it's the second part of the rule it means we have 4 lexemes and it's a global var and we set True to the isGlobal parameter
+    try:
+        p[0] = AST.AssignNode([AST.TokenNode(p[2]),p[4], True])
+    except:
+        p[0] = AST.AssignNode([AST.TokenNode(p[1]),p[3]])
 
 def p_error(p):
     if p:

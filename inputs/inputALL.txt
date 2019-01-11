@@ -1,0 +1,87 @@
+/*
+    Currently tested:
+        -   Functions with parameters 
+        -   Functions without parameters
+        -   Function call with wrong number of parameters   
+        -   Unexisting function call
+        -   Printing integer
+        -   Printing string
+        -   Printing variable
+        -   Boolean assignation
+        -   Boolean testing
+        -   While with variables
+		-	Line comments
+		-	Multiline comment
+
+    Add things to test !
+    E.g. operations, maybe test return value if done ?, global vs local variables, inline comment (after some code)
+*/
+
+
+fun functionWithSeveralParameters(param1, param2, param3)
+{
+    print(param1);
+    print(param2);
+    print(param3);
+    
+    print(myGlobalVar);
+    return
+}
+
+fun functionWithoutParameters()
+{
+    print("We have no parameters");
+    return
+}
+
+fun checkIfNumbersAreEquals(num1, num2)
+{
+    test = num1 == num2;
+    if(test)
+    {
+        print("They are equal!");
+    }
+
+    return
+}
+
+fun printGlobalVariable()
+{
+    print(myGlobalVar);
+    
+    return
+}
+
+print("Calling function with multiple parameters :");
+functionWithSeveralParameters("We " + "have ", 12*3, "parameters"); 
+print("--------------------------");
+print("Calling a function without any parameter :");
+functionWithoutParameters();
+
+//Here we test the error when the parameters number doesn't corresponds
+print("--------------------------");
+print("Trying to call function giving wrong parameters expecting error");
+functionWithoutParameters(12);
+
+//Here we test the call to unexisting function
+print("--------------------------");
+print("Trying to call undefined function expecting error");
+UnexistingFunction();
+
+// Testing to access a global variable from a function
+print("--------------------------");
+global myGlobalVar = "This is a global variable !";
+myGlobalVar = "This is a local with the same name as a global";
+printGlobalVariable();
+
+
+staticNum = 3;
+descendingNum = 10;
+
+while(staticNum < descendingNum)
+{
+    print("--------------------------");
+    print("Checking if numbers are equal");
+    checkIfNumbersAreEquals(staticNum, descendingNum);
+    descendingNum = descendingNum-1;
+}
