@@ -67,9 +67,9 @@ def execute(self):
         return False
 
 #We save the function's body in the functions dict, under the function's name
-@addToClass(AST.FunNode)
+@addToClass(AST.FunDecNode)
 def execute(self):
-    funs[self.name] = [self.params, self.body]
+    funs[self.name] = self
     
 #When we call the function, we extract it's body to add at the start the parameters as assignation nodes.
 #The parameters are actually just variables (AssignNode) that we add at the start of the body
@@ -79,48 +79,37 @@ def execute(self):
 def execute(self):
     try:
         #If the numbers of parameters at call and in the prototype aren't the same, we throw an error
-        if len(funs[self.name][0]) is not len(self.params):
-            print(f"*** Error : Number of parameters doesn't correspond to function's prototype ({len(self.params)} given, {len(funs[self.name][0])} expected) ")
+        if len(funs[self.name].params) is not len(self.params):
+            print(f"*** Error : Number of parameters doesn't correspond to function's prototype ({len(self.params)} given, {len(funs[self.name].params)} expected) ")
             return
-
-        #get a deepcopy of the body to keep the original untouched
-        paramsFuncBody = copy.deepcopy(funs[self.name][1])
-
+        
         #Add parameters at the start of the body
-        for identifier, value in zip(funs[self.name][0], self.params):
-
-            #paramValue = str(value)
-            paramValue = value
-            print("-----------------")
-            print("Val : ", paramValue)
-            print("Val : ", paramValue.execute())
-            print("Type val: ", type(paramValue))
-            print("-----------------")
-            # strValue = str(paramValue)
-            #print(strValue in vars[0].keys())
-            """print("Param val : ", paramValue)
-            print(type(paramValue))
-            print("Keys : ", vars[0].keys())
-            print(paramValue in vars[0].keys())"""
-
-            # if value in vars[0].keys():
-            #     paramValue = vars[0][value]
-
-            #print("Post check : ", paramValue)
-            paramsFuncBody.children.insert(0, AST.AssignNode([AST.TokenNode(identifier), paramValue.execute()]))
-
+        for identifier, value in zip(funs[self.name].params, self.params):
+            self.vars[identifier] = value.execute()
+        
         #we add the memory to the top of the stack
+        global vars
         vars.insert(0, self.vars)
-        return paramsFuncBody.execute()
-
+        
+        #execution of the body code
+        try:
+            funs[self.name].body.execute()
+        except:
+            pass
+        
+        return funs[self.name].result.execute()
+        
     except KeyError:
         print(f"*** Error : Call to undefined function ")
 
 #This node is used to return a value and know when to unstack the function's local memory
 @addToClass(AST.ReturnNode)
 def execute(self):
-    vars.pop(0)
-    return str(self)
+    result = self.result.execute()
+    #return to the last variable scope
+    global vars
+    vars = vars[1:]
+    return result
 
 @addToClass(AST.StringNode)
 def execute(self):
@@ -132,10 +121,10 @@ def execute(self):
 
 @addToClass(AST.AssignNode)
 def execute(self):
-    if(not self.isGlobal):
-        vars[0][self.children[0].tok] = self.children[1].execute()
-    else:
+    if(self.isGlobal):
         globalVars[self.children[0].tok] = self.children[1].execute()
+    else:
+        vars[0][self.children[0].tok] = self.children[1].execute()
 
 @addToClass(AST.PrintNode)
 def execute(self):

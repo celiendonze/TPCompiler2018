@@ -1,11 +1,19 @@
+/* test fun */
+
 fun s(er, sa, b)
 {
     print(b);
     print(er);
     print(sa);
     
-    return
+    return 0;
 }
 
-a = "w" + 3; 
-s(1, "a", 3);
+fun add(a, b){
+    return a+b;
+}
+
+a = "w" + "W"; 
+s(1, a, 3);
+
+print(add(1,2));

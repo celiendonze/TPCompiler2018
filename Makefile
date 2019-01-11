@@ -30,3 +30,6 @@ com:
 
 fun:
 	${eval FILE = 'inputs/inputFUN.txt'}
+
+testall:
+	${eval FILE = 'inputs/inputALL.txt'}

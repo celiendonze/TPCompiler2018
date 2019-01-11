@@ -23,7 +23,7 @@ literals = '();={},'
 
 def t_COMMENT(t):
 	r'/[*][^*]*[*]+([^/*][^*]*[*]+)*/|//[^\n]*'
-	pass
+	t.lexer.lineno += len(t.value.split("\n")) - 1
 
 def t_ADD_OP(t):
 	r'[+-]'
@@ -67,7 +67,7 @@ def t_newline(t):
 t_ignore  = ' \t'
 
 def t_error(t):
-	print ("Illegal character '%s'" % repr(t.value[0]))
+	print ("*** Illegal character '%s' at line %i" % (repr(t.value[0]), t.lexer.lineno))
 	t.lexer.skip(1)
 
 lex.lex()

@@ -7,13 +7,16 @@ import AST
 def p_programme_recursive(p):
     ''' programme : statement ';' programme
     | structure programme
-    | statement ';' 
+    | statement ';'
     | structure'''
     try:
         p[0] = AST.ProgramNode([p[1]]+p[3].children)
     except:
         try:
-            p[0] = AST.ProgramNode([p[1]]+p[2].children)
+            if(p[2] == ";"):
+                p[0] = AST.ProgramNode([p[1]])
+            else:
+                p[0] = AST.ProgramNode([p[1]]+p[2].children)
         except:
             p[0] = AST.ProgramNode([p[1]])
       
@@ -43,10 +46,14 @@ def p_structure(p):
 
 #This rule is the declaration of the functions
 def p_funcDec(p):
-    '''funcDec : FUN IDENTIFIER '(' params ')' '{' programme RETURN '}'
+    '''funcDec : FUN IDENTIFIER '(' params ')' '{' programme RETURN expression ';' '}'
+    | FUN IDENTIFIER '(' params ')' '{' RETURN expression ';' '}'
     '''
-    p[0] = AST.FunNode(p[2], p[7], p[4])
-    
+    if p[9] == ";":
+        p[0] = AST.FunDecNode(p[2], None, p[4], AST.ReturnNode(p[8]))
+    else:
+        p[0] = AST.FunDecNode(p[2], p[7], p[4], AST.ReturnNode(p[9]))
+        
 #This is the rule for the parameters of the function call. We can call a function with an operation, a variable, a number, ...
 def p_paramsCall(p):
     '''paramsCall : expression ',' paramsCall
@@ -78,6 +85,10 @@ def p_structure_while(p):
 def p_structure_if(p):
     ''' structure : IF expression '{' programme '}' '''
     p[0] = AST.IfNode([p[2], p[4]])
+
+def p_expression_funCall(p):
+    '''expression : funcCall'''
+    p[0] = p[1]
 
 def p_expression_add_strings(p):
     '''expression : STRING '+' STRING'''
@@ -119,16 +130,15 @@ def p_assignation(p):
     | GLOBAL IDENTIFIER '=' expression  '''
     # if it's the second part of the rule it means we have 4 lexemes and it's a global var and we set True to the isGlobal parameter
     try:
-        p[0] = AST.AssignNode([AST.TokenNode(p[2]),p[4], True])
+        p[0] = AST.AssignNode([AST.TokenNode(p[2]),p[4]], True)
     except:
         p[0] = AST.AssignNode([AST.TokenNode(p[1]),p[3]])
 
 def p_error(p):
     if p:
-        print ("Syntax error in line %d" % p.lineno)
-        yacc.errok()
+        print ("*** Syntax error in line %d" % p.lineno)
     else:
-        print ("Sytax error: unexpected end of file!")
+        print ("*** Sytax error: unexpected end of file!")
 
 
 precedence = (
