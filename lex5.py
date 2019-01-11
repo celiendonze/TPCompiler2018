@@ -18,6 +18,7 @@ tokens = (
 
 literals = '();={}'
 
+# handling of comments // or /* */
 def t_COMMENT(t):
 	r'/[*][^*]*[*]+([^/*][^*]*[*]+)*/|//[^\n]*'
 	pass
