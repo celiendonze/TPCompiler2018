@@ -91,20 +91,23 @@ def execute(self):
 
             #paramValue = str(value)
             paramValue = value
-            print("Val : ", str(paramValue))
-            
-            strValue = str(paramValue)
-            print(strValue in vars[0].keys())
+            print("-----------------")
+            print("Val : ", paramValue)
+            print("Val : ", paramValue.execute())
+            print("Type val: ", type(paramValue))
+            print("-----------------")
+            # strValue = str(paramValue)
+            #print(strValue in vars[0].keys())
             """print("Param val : ", paramValue)
             print(type(paramValue))
             print("Keys : ", vars[0].keys())
             print(paramValue in vars[0].keys())"""
 
-            if value in vars[0].keys():
-                paramValue = vars[0][value]
+            # if value in vars[0].keys():
+            #     paramValue = vars[0][value]
 
             #print("Post check : ", paramValue)
-            paramsFuncBody.children.insert(0, AST.AssignNode([AST.TokenNode(identifier), paramValue]))
+            paramsFuncBody.children.insert(0, AST.AssignNode([AST.TokenNode(identifier), paramValue.execute()]))
 
         #we add the memory to the top of the stack
         vars.insert(0, self.vars)
