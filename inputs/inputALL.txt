@@ -11,14 +11,11 @@
         -   Printing variable
         -   Boolean assignation
         -   Boolean testing
+        -   Comparison operators
         -   While with variables
 		-	Line comments
 		-	Multiline comment
-        -   
         -   Function returning value
-
-    Add things to test !
-    E.g. operations, maybe test return value if done ?, global vs local variables, inline comment (after some code)
 */
 
 fun functionWithSeveralParameters(param1, param2, param3)
