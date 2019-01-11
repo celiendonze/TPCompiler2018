@@ -1,4 +1,6 @@
 /*
+    Currently testing (as you are reading):
+        -   Comments
     Currently tested:
         -   Functions with parameters 
         -   Functions without parameters
@@ -12,6 +14,8 @@
         -   While with variables
 		-	Line comments
 		-	Multiline comment
+        -   
+        -   Function returning value
 
     Add things to test !
     E.g. operations, maybe test return value if done ?, global vs local variables, inline comment (after some code)
@@ -41,6 +45,11 @@ fun checkIfNumbersAreEquals(num1, num2)
         print("They are equal!");
     }
 
+    if(test == False)
+    {
+        print("They are not equal...");
+    }
+
     return 0;
 }
 
@@ -51,40 +60,56 @@ fun printGlobalVariable()
     return 0;
 }
 
-print("Starting Tests:");
-print("--------------------------");
-print("Calling function with multiple parameters :");
+fun returnTen()
+{
+    return 10;
+}
+
+fun prettyTesting(message)
+{
+    print("--------------------------");
+    print(message);
+
+    return 0;
+}
+
+prettyTesting("Starting Tests:");
+
+prettyTesting("Calling function with multiple parameters :");
 functionWithSeveralParameters("We " + "have ", 1*3, "parameters!"); 
-print("--------------------------");
-print("Calling a function without any parameter :");
+
+prettyTesting("Calling a function without any parameter :");
 functionWithoutParameters();
 
 //Here we test the error when the parameters number doesn't corresponds
-print("--------------------------");
-print("Trying to call function giving wrong parameters expecting error");
+prettyTesting("Trying to call function giving wrong parameters EXPECTING ERROR");
 functionWithoutParameters(12);
 
 //Here we test the call to unexisting function
-print("--------------------------");
-print("Trying to call undefined function expecting error");
+prettyTesting("Trying to call undefined function EXPECTING ERROR");
 UnexistingFunction();
 
-// Testing to access a global variable from a function
-print("--------------------------");
+
+// Testing to access a global variable from a function and a local one with the same name
+
 global myGlobalVar = "This is a global variable !";
 myGlobalVar = "This is a local with the same name as a global";
+
+prettyTesting("Testing to access a local variable with the same name as a local one");
+print(myGlobalVar);
+
+prettyTesting("Now accessing a global variable from a function");
 printGlobalVariable();
 
-print("--------------------------");
+prettyTesting("Testing function with return value :");
+print(returnTen());
 
 staticNum = 3;
 descendingNum = 10;
 
-checkIfNumbersAreEquals(staticNum, descendingNum);
-
-while(staticNum < descendingNum)
+while(staticNum <= descendingNum)
 {
-    print("--------------------------");
-    print("Checking if numbers are equal");
+    prettyTesting("Checking in the while loop");
+    checkIfNumbersAreEquals(staticNum, descendingNum);
     descendingNum = descendingNum-1;
 }
