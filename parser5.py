@@ -24,7 +24,7 @@ def p_statement(p):
     ''' statement : assignation
     | funcCall
     '''
-    p[0] = p[1] 
+    p[0] = p[1]
 
 #This rule is for the declaration of functions. We need only IDENTIFIERs. We can also create a function without parameters
 def p_params(p):

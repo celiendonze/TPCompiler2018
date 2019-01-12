@@ -15,5 +15,8 @@ fun add(a, b){
 
 a = "w" + "W"; 
 s(1, a, 3);
-
-print(add(1,2));
+i = 10;
+while(i > 0){
+    print(add(i,2));
+    i = i - 1;
+}
