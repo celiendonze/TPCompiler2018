@@ -13,6 +13,10 @@ clean:
 	@rm -rf ./generated/*;
 	@echo "cleaned" 
 
+install:
+	@pip install -r requirements.txt | python -m pip install -r requirements.txt
+	@python --version
+
 lex:
 	${eval COMMAND = 'lex5.py'}
 
