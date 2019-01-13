@@ -20,3 +20,16 @@ while(i > 0){
     print(add(i,2));
     i = i - 1;
 }
+
+alwaysTrue = True;
+
+if(alwaysTrue == True)
+{
+    print("This is always true");
+}
+
+myNumber = 8;
+if(myNumber > 5)
+{
+    print("8 is greater than 5");
+}

@@ -34,7 +34,7 @@ def t_MUL_OP(t):
 	return t
 
 def t_COMP_OP(t):
-	r'[<>][=]?|=='
+	r'[<>!][=]?|=='
 	return t
 
 def t_STRING(t):
