@@ -6,7 +6,7 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "leftADD_OPleftMUL_OPleftCOMP_OPrightUMINUSADD_OP BOOLEAN COMP_OP FUN GLOBAL IDENTIFIER IF MUL_OP NUMBER PRINT RETURN STRING WHILE programme : statement ';' programme\n    | structure programme\n    | statement ';'\n    | structure statement : assignation\n    | funcCall\n    params : IDENTIFIER ',' params\n    | IDENTIFIER\n    | structure : funcDec funcDec : FUN IDENTIFIER '(' params ')' '{' programme RETURN expression ';' '}'\n    | FUN IDENTIFIER '(' params ')' '{' RETURN expression ';' '}'\n    paramsCall : expression ',' paramsCall\n    | expression\n    |  funcCall : IDENTIFIER '(' paramsCall ')'  statement : PRINT expression  structure : WHILE expression '{' programme '}'  structure : IF expression '{' programme '}' expression : funcCallexpression : STRING '+' STRINGexpression : expression ADD_OP expression\n    | expression MUL_OP expressionexpression : expression COMP_OP expressionexpression : NUMBER\n    | IDENTIFIER expression : BOOLEAN expression : STRING expression : '(' expression ')'  expression : ADD_OP expression %prec UMINUS assignation : IDENTIFIER '=' expression\n    | GLOBAL IDENTIFIER '=' expression  "
+_lr_signature = "leftADD_OPleftMUL_OPleftCOMP_OPrightUMINUSADD_OP BOOLEAN COMP_OP FUN GLOBAL IDENTIFIER IF MUL_OP NUMBER PRINT RETURN STRING WHILE programme : statement ';' programme\n    | structure programme\n    | statement ';'\n    | structure statement : assignation\n    | funCall\n    params : IDENTIFIER ',' params\n    | IDENTIFIER\n    | structure : funDec funDec : FUN IDENTIFIER '(' params ')' '{' programme RETURN expression ';' '}'\n    | FUN IDENTIFIER '(' params ')' '{' RETURN expression ';' '}'\n    paramsCall : expression ',' paramsCall\n    | expression\n    |  funCall : IDENTIFIER '(' paramsCall ')'  statement : PRINT expression  structure : WHILE expression '{' programme '}'  structure : IF expression '{' programme '}' expression : funCallexpression : STRING '+' STRINGexpression : expression ADD_OP expression\n    | expression MUL_OP expressionexpression : expression COMP_OP expressionexpression : NUMBER\n    | IDENTIFIER expression : BOOLEAN expression : STRING expression : '(' expression ')'  expression : ADD_OP expression %prec UMINUS assignation : IDENTIFIER '=' expression\n    | GLOBAL IDENTIFIER '=' expression  "
     
 _lr_action_items = {'PRINT':([0,3,7,13,36,37,55,56,61,69,70,],[6,6,-10,6,6,6,-18,-19,6,-12,-11,]),'WHILE':([0,3,7,13,36,37,55,56,61,69,70,],[8,8,-10,8,8,8,-18,-19,8,-12,-11,]),'IF':([0,3,7,13,36,37,55,56,61,69,70,],[9,9,-10,9,9,9,-18,-19,9,-12,-11,]),'IDENTIFIER':([0,3,6,7,8,9,11,12,13,18,22,25,26,30,31,32,36,37,41,42,51,55,56,58,61,63,64,69,70,],[10,10,20,-10,20,20,27,28,10,20,20,20,20,20,20,20,10,10,20,53,20,-18,-19,53,10,20,20,-12,-11,]),'GLOBAL':([0,3,7,13,36,37,55,56,61,69,70,],[11,11,-10,11,11,11,-18,-19,11,-12,-11,]),'FUN':([0,3,7,13,36,37,55,56,61,69,70,],[12,12,-10,12,12,12,-18,-19,12,-12,-11,]),'$end':([1,3,7,13,14,29,55,56,69,70,],[0,-4,-10,-3,-2,-1,-18,-19,-12,-11,]),';':([2,4,5,15,16,17,19,20,21,34,38,43,44,45,46,47,50,52,65,66,],[13,-5,-6,-17,-20,-28,-25,-26,-27,-30,-31,-22,-23,-24,-21,-29,-16,-32,67,68,]),'}':([3,7,13,14,29,48,49,55,56,67,68,69,70,],[-4,-10,-3,-2,-1,55,56,-18,-19,69,70,-12,-11,]),'RETURN':([3,7,13,14,29,55,56,61,62,69,70,],[-4,-10,-3,-2,-1,-18,-19,63,64,-12,-11,]),'STRING':([6,8,9,18,22,25,26,30,31,32,33,41,51,63,64,],[17,17,17,17,17,17,17,17,17,17,46,17,17,17,17,]),'NUMBER':([6,8,9,18,22,25,26,30,31,32,41,51,63,64,],[19,19,19,19,19,19,19,19,19,19,19,19,19,19,]),'BOOLEAN':([6,8,9,18,22,25,26,30,31,32,41,51,63,64,],[21,21,21,21,21,21,21,21,21,21,21,21,21,21,]),'(':([6,8,9,10,18,20,22,25,26,28,30,31,32,41,51,63,64,],[22,22,22,26,22,26,22,22,22,42,22,22,22,22,22,22,22,]),'ADD_OP':([6,8,9,15,16,17,18,19,20,21,22,23,24,25,26,30,31,32,34,35,38,40,41,43,44,45,46,47,50,51,52,63,64,65,66,],[18,18,18,30,-20,-28,18,-25,-26,-27,18,30,30,18,18,18,18,18,-30,30,30,30,18,-22,-23,-24,-21,-29,-16,18,30,18,18,30,30,]),'=':([10,27,],[25,41,]),'MUL_OP':([15,16,17,19,20,21,23,24,34,35,38,40,43,44,45,46,47,50,52,65,66,],[31,-20,-28,-25,-26,-27,31,31,-30,31,31,31,31,-23,-24,-21,-29,-16,31,31,31,]),'COMP_OP':([15,16,17,19,20,21,23,24,34,35,38,40,43,44,45,46,47,50,52,65,66,],[32,-20,-28,-25,-26,-27,32,32,-30,32,32,32,32,32,-24,-21,-29,-16,32,32,32,]),'{':([16,17,19,20,21,23,24,34,43,44,45,46,47,50,59,],[-20,-28,-25,-26,-27,36,37,-30,-22,-23,-24,-21,-29,-16,61,]),')':([16,17,19,20,21,26,34,35,39,40,42,43,44,45,46,47,50,51,53,54,57,58,60,],[-20,-28,-25,-26,-27,-15,-30,47,50,-14,-9,-22,-23,-24,-21,-29,-16,-15,-8,59,-13,-9,-7,]),',':([16,17,19,20,21,34,40,43,44,45,46,47,50,53,],[-20,-28,-25,-26,-27,-30,51,-22,-23,-24,-21,-29,-16,58,]),'+':([17,],[33,]),}
 
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'programme':([0,3,13,36,37,61,],[1,14,29,48,49,62,]),'statement':([0,3,13,36,37,61,],[2,2,2,2,2,2,]),'structure':([0,3,13,36,37,61,],[3,3,3,3,3,3,]),'assignation':([0,3,13,36,37,61,],[4,4,4,4,4,4,]),'funcCall':([0,3,6,8,9,13,18,22,25,26,30,31,32,36,37,41,51,61,63,64,],[5,5,16,16,16,5,16,16,16,16,16,16,16,5,5,16,16,5,16,16,]),'funcDec':([0,3,13,36,37,61,],[7,7,7,7,7,7,]),'expression':([6,8,9,18,22,25,26,30,31,32,41,51,63,64,],[15,23,24,34,35,38,40,43,44,45,52,40,65,66,]),'paramsCall':([26,51,],[39,57,]),'params':([42,58,],[54,60,]),}
+_lr_goto_items = {'programme':([0,3,13,36,37,61,],[1,14,29,48,49,62,]),'statement':([0,3,13,36,37,61,],[2,2,2,2,2,2,]),'structure':([0,3,13,36,37,61,],[3,3,3,3,3,3,]),'assignation':([0,3,13,36,37,61,],[4,4,4,4,4,4,]),'funCall':([0,3,6,8,9,13,18,22,25,26,30,31,32,36,37,41,51,61,63,64,],[5,5,16,16,16,5,16,16,16,16,16,16,16,5,5,16,16,5,16,16,]),'funDec':([0,3,13,36,37,61,],[7,7,7,7,7,7,]),'expression':([6,8,9,18,22,25,26,30,31,32,41,51,63,64,],[15,23,24,34,35,38,40,43,44,45,52,40,65,66,]),'paramsCall':([26,51,],[39,57,]),'params':([42,58,],[54,60,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -32,21 +32,21 @@ _lr_productions = [
   ('programme -> statement ;','programme',2,'p_programme_recursive','parser5.py',10),
   ('programme -> structure','programme',1,'p_programme_recursive','parser5.py',11),
   ('statement -> assignation','statement',1,'p_statement','parser5.py',24),
-  ('statement -> funcCall','statement',1,'p_statement','parser5.py',25),
+  ('statement -> funCall','statement',1,'p_statement','parser5.py',25),
   ('params -> IDENTIFIER , params','params',3,'p_params','parser5.py',31),
   ('params -> IDENTIFIER','params',1,'p_params','parser5.py',32),
   ('params -> <empty>','params',0,'p_params','parser5.py',33),
-  ('structure -> funcDec','structure',1,'p_structure','parser5.py',44),
-  ('funcDec -> FUN IDENTIFIER ( params ) { programme RETURN expression ; }','funcDec',11,'p_funcDec','parser5.py',49),
-  ('funcDec -> FUN IDENTIFIER ( params ) { RETURN expression ; }','funcDec',10,'p_funcDec','parser5.py',50),
+  ('structure -> funDec','structure',1,'p_structure','parser5.py',44),
+  ('funDec -> FUN IDENTIFIER ( params ) { programme RETURN expression ; }','funDec',11,'p_funDec','parser5.py',49),
+  ('funDec -> FUN IDENTIFIER ( params ) { RETURN expression ; }','funDec',10,'p_funDec','parser5.py',50),
   ('paramsCall -> expression , paramsCall','paramsCall',3,'p_paramsCall','parser5.py',59),
   ('paramsCall -> expression','paramsCall',1,'p_paramsCall','parser5.py',60),
   ('paramsCall -> <empty>','paramsCall',0,'p_paramsCall','parser5.py',61),
-  ('funcCall -> IDENTIFIER ( paramsCall )','funcCall',4,'p_funcCall','parser5.py',74),
+  ('funCall -> IDENTIFIER ( paramsCall )','funCall',4,'p_funCall','parser5.py',74),
   ('statement -> PRINT expression','statement',2,'p_statement_print','parser5.py',78),
   ('structure -> WHILE expression { programme }','structure',5,'p_structure_while','parser5.py',82),
   ('structure -> IF expression { programme }','structure',5,'p_structure_if','parser5.py',86),
-  ('expression -> funcCall','expression',1,'p_expression_funCall','parser5.py',90),
+  ('expression -> funCall','expression',1,'p_expression_funCall','parser5.py',90),
   ('expression -> STRING + STRING','expression',3,'p_expression_add_strings','parser5.py',94),
   ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parser5.py',99),
   ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parser5.py',100),

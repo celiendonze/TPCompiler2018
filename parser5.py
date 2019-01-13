@@ -22,7 +22,7 @@ def p_programme_recursive(p):
       
 def p_statement(p):
     ''' statement : assignation
-    | funcCall
+    | funCall
     '''
     p[0] = p[1]
 
@@ -41,12 +41,12 @@ def p_params(p):
             p[0] = []
 
 def p_structure(p):
-    '''structure : funcDec '''
+    '''structure : funDec '''
     p[0] = p[1]
 
 #This rule is the declaration of the functions
-def p_funcDec(p):
-    '''funcDec : FUN IDENTIFIER '(' params ')' '{' programme RETURN expression ';' '}'
+def p_funDec(p):
+    '''funDec : FUN IDENTIFIER '(' params ')' '{' programme RETURN expression ';' '}'
     | FUN IDENTIFIER '(' params ')' '{' RETURN expression ';' '}'
     '''
     if p[9] == ";":
@@ -70,8 +70,8 @@ def p_paramsCall(p):
 
 
 #This is the rule for the call of a function    
-def p_funcCall(p):
-    '''funcCall : IDENTIFIER '(' paramsCall ')' '''
+def p_funCall(p):
+    '''funCall : IDENTIFIER '(' paramsCall ')' '''
     p[0] = AST.FunCallNode(p[1], p[3])
 
 def p_statement_print(p):
@@ -87,7 +87,7 @@ def p_structure_if(p):
     p[0] = AST.IfNode([p[2], p[4]])
 
 def p_expression_funCall(p):
-    '''expression : funcCall'''
+    '''expression : funCall'''
     p[0] = p[1]
 
 def p_expression_add_strings(p):
