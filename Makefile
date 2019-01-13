@@ -1,5 +1,5 @@
 COMMAND = 'recInterpreter.py'
-FILE = 'inputs/input1.txt'
+FILE = 'inputs/inputALL.txt'
 
 all:
 	@clear
@@ -11,26 +11,17 @@ run:
 
 clean:
 	@rm -rf ./generated/*;
-	@echo "cleaned" 
+	@echo "generated directory cleaned" 
 
 install:
+	@python --version | @echo "Python is not installed on this machine!"
 	@pip install -r requirements.txt | python -m pip install -r requirements.txt
-	@python --version
-
+	
 lex:
 	${eval COMMAND = 'lex5.py'}
 
-1: 
-	${eval FILE = 'inputs/input1.txt'}
-
-2: 
-	${eval FILE = 'inputs/input2.txt'}
-
 if:
 	${eval FILE = 'inputs/inputIF.txt'}
-
-com:
-	${eval FILE = 'inputs/inputComment.txt'}
 
 fun:
 	${eval FILE = 'inputs/inputFUN.txt'}

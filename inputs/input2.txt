@@ -1,4 +1,0 @@
-a = "salut" + "salut";
-print(a);
-print("Hello " + "World!!");
-print("Hello" + 2);
