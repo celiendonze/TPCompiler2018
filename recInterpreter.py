@@ -84,13 +84,14 @@ def execute(self):
             print(f"*** Error : Number of parameters doesn't correspond to function's prototype ({len(self.params)} given, {len(funs[self.name].params)} expected) ")
             return
         
+        localVars = {}
         #Add parameters at the start of the body
         for identifier, value in zip(funs[self.name].params, self.params):
-            self.vars[identifier] = value.execute()
+            localVars[identifier] = value.execute()
         
         #we add the memory to the top of the stack
         global vars
-        vars.insert(0, self.vars)
+        vars.insert(0, localVars)
         
         #execution of the body code
         try:

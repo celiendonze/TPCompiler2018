@@ -111,9 +111,6 @@ class FunCallNode(Node):
         Node.__init__(self)
         self.name = name
         self.params = params
-        # loop through local vars and take the variable value instead of the raw value
-        
-        self.vars = {}
 
 class ReturnNode(Node):
     type = "returnNode"
@@ -121,7 +118,6 @@ class ReturnNode(Node):
         Node.__init__(self)
         self.result = result
     
-        
 class TokenNode(Node):
     type = 'token'
     def __init__(self, tok):
